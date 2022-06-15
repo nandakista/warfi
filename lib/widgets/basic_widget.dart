@@ -11,7 +11,10 @@ class CustomCard extends StatelessWidget {
   final Widget? child;
   final double? borderRadius;
   final double? elevation;
+  final double? width;
+  final double? height;
   final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
 
   const CustomCard({
     Key? key,
@@ -21,24 +24,27 @@ class CustomCard extends StatelessWidget {
     this.child,
     this.padding,
     this.elevation,
+    this.margin, this.width, this.height,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 4),
+      margin: margin,
       elevation: elevation ?? 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius!),
       ),
       child: Container(
+        height: height,
+        width: width ?? MediaQuery.of(context).size.width,
         padding: padding,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius!),
           // color: backgroundColor,
-          color: (Get.isDarkMode)
+          color: backgroundColor ?? ((Get.isDarkMode)
               ? context.theme.dialogBackgroundColor
-              : Colors.white,
+              : Colors.white),
         ),
         child: child,
       ),
