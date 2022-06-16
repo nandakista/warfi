@@ -19,3 +19,10 @@ class Product {
     this.updateAt,
   });
 }
+
+List<Product> dummyProduct = [
+  Product(name: 'Roma Biscuit', quantity: Quantity(bal: 2, box: 2, lusin: 0, pack: 0, pcs: 12), price: 12000),
+  Product(name: 'Rinso', quantity: Quantity(bal: 2, box: 4, lusin: 0, pack: 0, pcs: 0), price: 32000),
+  Product(name: 'Sabun Lifebuoy', quantity: Quantity(bal: 4, box: 0, lusin: 2, pack: 0, pcs: 2), price: 4500),
+  Product(name: 'Shampo', quantity: Quantity(bal: 3, box: 0, lusin: 0, pack: 0, pcs: 9), price: 22000)
+];

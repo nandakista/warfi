@@ -1,9 +1,14 @@
 import 'package:desktop_base/features/home/component/header_card_component.dart';
+import 'package:desktop_base/helper/converter_helper.dart';
+import 'package:desktop_base/models/product.dart';
+import 'package:desktop_base/models/quantity.dart';
 import 'package:desktop_base/themes/app_colors.dart';
+import 'package:desktop_base/themes/app_style.dart';
 import 'package:desktop_base/widgets/basic_widget.dart';
 import 'package:desktop_base/widgets/content_wrapper.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fl;
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatelessWidget {
   static const String route = '/home';
@@ -11,6 +16,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Product> data = dummyProduct;
     return ContentWrapper(
       title: 'Home',
       canBack: false,
@@ -26,8 +32,8 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             ..._buildHeader(),
-            const SizedBox(height: 50),
-            _buildBody(context),
+            const SizedBox(height: 30),
+            _buildBody(context, data),
           ],
         ),
       ),
@@ -59,86 +65,101 @@ class HomePage extends StatelessWidget {
     ];
   }
 
-  _buildBody(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          title: Row(
-            children: [
-              Flexible(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: const Text('Product',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+  _buildBody(BuildContext context, List<Product> data) {
+    if(data.isEmpty) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 60),
+          SvgPicture.asset('assets/images/img_empty_product.svg', width: 250),
+          const SizedBox(height: 30),
+          Center(child: Text('Anda belum \nmenambahkan Produk', textAlign: TextAlign.center,  style: AppStyle.subtitle1,)),
+        ],
+      );
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTile(
+            title: Row(
+              children: [
+                Flexible(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: const Text('Product',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
                 ),
-              ),
-              Flexible(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: const Text('Harga',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                Flexible(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: const Text('Harga',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
                 ),
-              ),
-              Flexible(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: const Text('Kuantitas',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                Flexible(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: const Text('Kuantitas',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (_, index) => const Divider(),
-          itemCount: 5,
-          itemBuilder: (_, index) {
-            return ListTile(
-              trailing: IconButton(
-                icon: const Icon(fl.FluentIcons.edit_solid12),
-                color: AppColors.accent,
-                onPressed: () {},
-              ),
-              title: Row(
-                children: [
-                  Flexible(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: const Text('Item Name'),
-                    ),
-                  ),
-                  Flexible(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: const Text('Rp. 0,00'),
-                    ),
-                  ),
-                  Flexible(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: const [
-                          Text('0 Dus'),
-                          SizedBox(width: 16),
-                          Text('0 Bal'),
-                          SizedBox(width: 16),
-                          Text('0 Pack'),
-                          SizedBox(width: 16),
-                          Text('0 Pcs'),
-                        ],
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (_, index) => const Divider(),
+            itemCount: data.length,
+            itemBuilder: (_, index) {
+              Product item = data[index];
+              Quantity? quantity = item.quantity;
+              return ListTile(
+                trailing: IconButton(
+                  icon: const Icon(fl.FluentIcons.edit_solid12),
+                  color: AppColors.accent,
+                  onPressed: () {},
+                ),
+                title: Row(
+                  children: [
+                    Flexible(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Text(item.name.toString()),
                       ),
                     ),
-                  )
-                ],
-              ),
-            );
-          },
-        ),
-      ],
-    );
+                    Flexible(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Text(AppConverter.toIDR(amount: item.price ?? 0)),
+                      ),
+                    ),
+                    Flexible(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text('${quantity?.box} Dus'),
+                            const SizedBox(width: 16),
+                            Text('${quantity?.bal} Bal'),
+                            const SizedBox(width: 16),
+                            Text('${quantity?.pack} Pack'),
+                            const SizedBox(width: 16),
+                            Text('${quantity?.pcs} Pcs'),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      );
+    }
   }
 }
