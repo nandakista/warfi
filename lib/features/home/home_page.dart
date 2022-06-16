@@ -59,6 +59,7 @@ class HomePage extends StatelessWidget {
             subtitle: 'Nota',
             icon: fl.FluentIcons.account_activity,
             margin: EdgeInsets.symmetric(horizontal: 16),
+            backgroundColor: Colors.blue,
           ),
         ],
       )
@@ -119,7 +120,7 @@ class HomePage extends StatelessWidget {
               return ListTile(
                 trailing: IconButton(
                   icon: const Icon(fl.FluentIcons.edit_solid12),
-                  color: AppColors.accent,
+                  color: AppColors.secondary,
                   onPressed: () {},
                 ),
                 title: Row(

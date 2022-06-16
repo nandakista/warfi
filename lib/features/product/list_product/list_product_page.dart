@@ -52,7 +52,7 @@ class ListProductPage extends StatelessWidget {
                 return ListTile(
                   trailing: IconButton(
                     icon: const Icon(fl.FluentIcons.edit_solid12),
-                    color: AppColors.accent,
+                    color: AppColors.secondary,
                     onPressed: () {},
                   ),
                   title: Row(
