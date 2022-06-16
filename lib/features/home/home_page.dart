@@ -112,7 +112,7 @@ class HomePage extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (_, index) => const Divider(),
-            itemCount: data.length,
+            itemCount: data.length < 8 ? data.length : 8,
             itemBuilder: (_, index) {
               Product item = data[index];
               Quantity? quantity = item.quantity;
