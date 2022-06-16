@@ -10,6 +10,8 @@ class ContentWrapper extends StatelessWidget {
   final Widget? floatingActionButton;
   final bool? canBack;
   final VoidCallback? onPress;
+  final List<Widget>? action;
+
   const ContentWrapper({
     Key? key,
     required this.child,
@@ -17,22 +19,22 @@ class ContentWrapper extends StatelessWidget {
     this.floatingActionButton,
     this.canBack = true,
     this.onPress,
+    this.action,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: (context.isDarkMode) ? AppColors.baseDark : AppColors.baseLight,
+      backgroundColor:
+          (context.isDarkMode) ? AppColors.baseDark : AppColors.baseLight,
       floatingActionButton: floatingActionButton,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80),
         child: CustomAppBar(
           title: title!,
+          action: action,
           canBack: canBack,
-          onPress: onPress ??
-              () {
-                Navigator.pop(context);
-              },
+          onPress: onPress ?? () => Navigator.pop(context),
         ),
       ),
       body: Container(

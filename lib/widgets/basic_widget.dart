@@ -24,7 +24,9 @@ class CustomCard extends StatelessWidget {
     this.child,
     this.padding,
     this.elevation,
-    this.margin, this.width, this.height,
+    this.margin,
+    this.width,
+    this.height,
   }) : super(key: key);
 
   @override
@@ -42,11 +44,62 @@ class CustomCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius!),
           // color: backgroundColor,
-          color: backgroundColor ?? ((Get.isDarkMode)
-              ? context.theme.dialogBackgroundColor
-              : Colors.white),
+          color: backgroundColor ??
+              ((Get.isDarkMode)
+                  ? context.theme.dialogBackgroundColor
+                  : Colors.white),
         ),
         child: child,
+      ),
+    );
+  }
+}
+
+class ActionIcon extends StatelessWidget {
+  final int countUpdate;
+  final IconData? icon;
+  final Color? color;
+  final VoidCallback? onPressed;
+
+  const ActionIcon({
+    Key? key,
+    this.countUpdate = 0,
+    this.icon,
+    this.color,
+    this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: Stack(
+        children: [
+          IconButton(
+            onPressed: onPressed,
+            icon: Icon(
+              icon,
+              color:
+                  color ?? ((context.isDarkMode) ? Colors.white : Colors.black),
+              size: 32,
+            ),
+          ),
+          Visibility(
+            visible: (countUpdate != 0),
+            child: Positioned(
+              top: 10,
+              right: 0,
+              child: CircleAvatar(
+                backgroundColor: Colors.red,
+                maxRadius: 8,
+                child: Text(
+                  countUpdate.toString(),
+                  style: const TextStyle(fontSize: 9),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

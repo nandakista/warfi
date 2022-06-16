@@ -20,6 +20,8 @@ class AppStyle {
   static TextStyle subtitle4 =
       const TextStyle(fontSize: 16, fontFamily: "Poppins");
 
+  static TextStyle normal =
+  const TextStyle(fontSize: 14, fontFamily: "Poppins",);
   static TextStyle normalSmall =
       const TextStyle(fontSize: 11, fontFamily: "Poppins",);
 

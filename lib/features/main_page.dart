@@ -10,7 +10,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -25,7 +24,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-      (Get.isDarkMode) ? AppColors.baseDark : AppColors.baseLight,
+          (Get.isDarkMode) ? AppColors.baseDark : AppColors.baseLight,
       body: NavigationView(
         appBar: NavigationAppBar(
           title: Text(
@@ -36,11 +35,11 @@ class _MainPageState extends State<MainPage> {
           leading: Container(),
         ),
         pane: NavigationPane(
-            selected: _currentIndex,
-            onChanged: (i) => setState(() => _currentIndex = i),
-            displayMode: _buildPaneStyle(),
-            indicator: const EndNavigationIndicator(),
-            items: _buildPaneItem(),
+          selected: _currentIndex,
+          onChanged: (i) => setState(() => _currentIndex = i),
+          displayMode: _buildPaneStyle(),
+          indicator: const EndNavigationIndicator(),
+          items: _buildPaneItem(),
         ),
         content: NavigationBody.builder(
           index: _currentIndex,
@@ -58,9 +57,9 @@ class _MainPageState extends State<MainPage> {
 
   PaneDisplayMode _buildPaneStyle() {
     var screenWidth = MediaQuery.of(context).size.width;
-    if(screenWidth<600) {
+    if (screenWidth < 600) {
       return PaneDisplayMode.top;
-    } else if(screenWidth<800) {
+    } else if (screenWidth < 850) {
       return PaneDisplayMode.compact;
     } else {
       return PaneDisplayMode.open;
@@ -68,26 +67,26 @@ class _MainPageState extends State<MainPage> {
   }
 
   List<NavigationPaneItem> _buildPaneItem() => [
-    PaneItem(
-      icon: const Icon(FluentIcons.home),
-      title: const Text('Home'),
-    ),
-    PaneItem(
-      icon: const Icon(FluentIcons.activate_orders),
-      title: const Text('Product'),
-      infoBadge: const InfoBadge(
-        source: Text('9'),
-      ),
-    ),
-    PaneItem(
-      icon: const Icon(FluentIcons.add_to_shopping_list),
-      title: const Text('Transaction'),
-    ),
-    PaneItem(
-      icon: const Icon(FluentIcons.local_admin),
-      title: const Text('About'),
-    ),
-  ];
+        PaneItem(
+          icon: const Icon(FluentIcons.home),
+          title: const Text('Home'),
+        ),
+        PaneItem(
+          icon: const Icon(FluentIcons.shop),
+          title: const Text('Product'),
+          infoBadge: const InfoBadge(
+            source: Text('9'),
+          ),
+        ),
+        PaneItem(
+          icon: const Icon(FluentIcons.add_to_shopping_list),
+          title: const Text('Transaction'),
+        ),
+        PaneItem(
+          icon: const Icon(FluentIcons.local_admin),
+          title: const Text('About'),
+        ),
+      ];
 
   final List<Widget> _buildPages = [
     const BaseNavigator(pages: homeRoute),

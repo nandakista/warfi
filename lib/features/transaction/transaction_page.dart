@@ -9,8 +9,40 @@ class TransactionPage extends StatelessWidget {
     return ContentWrapper(
       title: 'Transaction',
       canBack: false,
-      child: Center(
-        child: Text('Transaction'),
+      child: Container(
+        height: 300,
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          children: [
+            Flexible(
+              child: Container(
+                color: Colors.amber,
+                width: MediaQuery.of(context).size.width,
+                child: Text('Product',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ),
+            Flexible(
+              child: Container(
+                color: Colors.blue,
+                width: MediaQuery.of(context).size.width,
+                child: Text('Harga',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ),
+            Flexible(
+              child: Container(
+                color: Colors.red,
+                width: MediaQuery.of(context).size.width,
+                child: Text('Kuantitas',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:desktop_base/features/product/add_product/add_product_page.dart';
+import 'package:desktop_base/themes/app_colors.dart';
 import 'package:desktop_base/themes/app_style.dart';
 import 'package:desktop_base/widgets/content_wrapper.dart';
+import 'package:fluent_ui/fluent_ui.dart' as fl;
 import 'package:flutter/material.dart';
 
 class ListProductPage extends StatelessWidget {
@@ -13,8 +15,12 @@ class ListProductPage extends StatelessWidget {
       title: 'Product List',
       canBack: false,
       floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, AddProductPage.route),
-          child: const Icon(Icons.add)),
+        onPressed: () => Navigator.pushNamed(context, AddProductPage.route),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       child: ListView.separated(
         separatorBuilder: (context, index) {
           return const Divider();
@@ -29,11 +35,10 @@ class ListProductPage extends StatelessWidget {
 
   _buildItem() {
     return ListTile(
-      trailing: InkWell(
-        child: IconButton(
-          icon: const Icon(Icons.edit),
-          onPressed: () {},
-        ),
+      trailing: IconButton(
+        icon: const Icon(fl.FluentIcons.edit_solid12),
+        color: AppColors.accent,
+        onPressed: () {},
       ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.start,
