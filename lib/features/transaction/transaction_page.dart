@@ -9,8 +9,7 @@ class TransactionPage extends StatelessWidget {
     return ContentWrapper(
       title: 'Transaction',
       canBack: false,
-      child: Container(
-        height: 300,
+      child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Row(
           children: [
@@ -18,7 +17,7 @@ class TransactionPage extends StatelessWidget {
               child: Container(
                 color: Colors.amber,
                 width: MediaQuery.of(context).size.width,
-                child: Text('Product',
+                child: const Text('Product',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ),

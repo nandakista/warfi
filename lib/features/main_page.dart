@@ -1,6 +1,7 @@
 import 'package:desktop_base/app/app_constant.dart';
 import 'package:desktop_base/features/about/about_page.dart';
 import 'package:desktop_base/features/home/home_routes.dart';
+import 'package:desktop_base/features/product/add_product/add_product_page.dart';
 import 'package:desktop_base/features/product/product_routes.dart';
 import 'package:desktop_base/features/transaction/transaction_page.dart';
 import 'package:desktop_base/helper/base_navigator.dart';

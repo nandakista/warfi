@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 
 class AppColors {
   // General
-  static const Color primary = Color(0xff70cde5);
+  static const Color primary = Color(0xff009cc6);
+  static const Color onPrimary = Color(0xff70cde5);
   static const Color disabledPrimary = Color(0xffbfedff);
   static const Color accent = Color(0xffffa939);
   static const Color secondary = Color(0xff009cc6);
@@ -11,7 +12,7 @@ class AppColors {
   // System
   static const Color systemGrey = Color(0xffF1F1F1);
   static const Color systemBlack = Color(0xff141414);
-  static const Color systemDarkGrey = Color(0xffB8B8B8);
+  static const Color systemDarkGrey = Color(0xff9e9e9e);
   static const Color systemBgDark = Color(0xff303030);
   static const Color systemBgLight = Color(0xffFAFAFA);
   static const Color subtitleText = Color(0xff504F5E);

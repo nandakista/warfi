@@ -1,9 +1,10 @@
 import 'package:desktop_base/themes/app_colors.dart';
+import 'package:desktop_base/themes/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomFieldForm extends StatelessWidget {
-  final String label, hint;
+  final String? label, hint, endText;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final IconData icon;
@@ -38,6 +39,7 @@ class CustomFieldForm extends StatelessWidget {
     this.onFieldSubmitted,
     this.onChanged,
     this.readOnly = false,
+    this.endText,
   }) : super(key: key);
 
   @override
@@ -66,7 +68,18 @@ class CustomFieldForm extends StatelessWidget {
         decoration: InputDecoration(
           border: InputBorder.none,
           prefixIcon: Icon(icon),
-          suffixIcon: Icon(endIcon),
+          suffixIcon: (endText == null)
+              ? Icon(endIcon)
+              : Align(
+                  widthFactor: 1,
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    endText.toString(),
+                    style: AppStyle.subtitle4.copyWith(
+                      color: AppColors.systemDarkGrey,
+                    ),
+                  ),
+                ),
           hintText: label,
           labelText: hint,
           floatingLabelStyle: TextStyle(color: textColor),

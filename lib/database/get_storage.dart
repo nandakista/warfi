@@ -7,6 +7,7 @@ class KeyBox {
   static const String token = 'token';
   static const String refreshToken = 'refresh-token';
   static const String user = 'user';
+  static const String product = 'product';
 }
 
 class LocalStorage {
@@ -14,6 +15,7 @@ class LocalStorage {
 
   final userBox = GetStorage('userBox');
   final authBox = GetStorage('authBox');
+  final productBox = GetStorage('productBox');
 
   // -------<Credential Storage>-------
   void saveToken(String token) => authBox.write(KeyBox.token, token);
