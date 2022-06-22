@@ -50,44 +50,61 @@ class ListProductPage extends StatelessWidget {
                 Product item = data[index];
                 Quantity? quantity = item.quantity;
                 return ListTile(
-                  trailing: IconButton(
-                    icon: const Icon(fl.FluentIcons.edit_solid12),
-                    color: AppColors.secondary,
-                    onPressed: () {},
-                  ),
+                  // trailing: IconButton(
+                  //   icon: const Icon(fl.FluentIcons.edit_solid12),
+                  //   color: AppColors.secondary,
+                  //   onPressed: () {},
+                  // ),
                   title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: Image(
-                            image: AssetImage(
-                              'assets/images/img_register.png',
+                      Flexible(
+                        flex: 2,
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 60,
+                              height: 60,
+                              child: Image(
+                                  image: AssetImage(
+                                    'assets/images/img_register.png',
+                                  ),
+                                  fit: BoxFit.cover),
                             ),
-                            fit: BoxFit.cover),
-                      ),
-                      const SizedBox(width: 24),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item.name.toString(),
-                            style: AppStyle.subtitle2,
-                          ),
-                          Text(AppConverter.toIDR(amount: item.price ?? 0)),
-                        ],
+                            const SizedBox(width: 24),
+                            Expanded(
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.name.toString(),
+                                      style: AppStyle.subtitle2,
+                                    ),
+                                    Text(AppConverter.toIDR(amount: item.price ?? 0)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       const Spacer(),
-                      Row(
-                        children: [
-                          Text('${quantity?.box} Dus'),
-                          const SizedBox(width: 16),
-                          Text('${quantity?.bal} Bal'),
-                          const SizedBox(width: 16),
-                          Text('${quantity?.pack} Pack'),
-                          const SizedBox(width: 16),
-                          Text('${quantity?.pcs} Pcs'),
-                        ],
+                      Flexible(
+                        flex: 3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(child: Text('${quantity?.box} Dus')),
+                            const SizedBox(width: 16),
+                            Expanded(child: Text('${quantity?.bal} Bal')),
+                            const SizedBox(width: 16),
+                            Expanded(child: Text('${quantity?.pack} Pack')),
+                            const SizedBox(width: 16),
+                            Expanded(child: Text('${quantity?.pcs} Pcs')),
+                          ],
+                        ),
                       )
                     ],
                   ),

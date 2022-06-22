@@ -99,6 +99,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Flexible(
+                  flex: 2,
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: const Text('Kuantitas',
@@ -118,11 +119,6 @@ class HomePage extends StatelessWidget {
               Product item = data[index];
               Quantity? quantity = item.quantity;
               return ListTile(
-                trailing: IconButton(
-                  icon: const Icon(fl.FluentIcons.edit_solid12),
-                  color: AppColors.secondary,
-                  onPressed: () {},
-                ),
                 title: Row(
                   children: [
                     Flexible(
@@ -138,18 +134,19 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     Flexible(
+                      flex: 2,
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text('${quantity?.box} Dus'),
+                            Expanded(child: Text('${quantity?.box} Dus')),
                             const SizedBox(width: 16),
-                            Text('${quantity?.bal} Bal'),
+                            Expanded(child: Text('${quantity?.bal} Bal')),
                             const SizedBox(width: 16),
-                            Text('${quantity?.pack} Pack'),
+                            Expanded(child: Text('${quantity?.pack} Pack')),
                             const SizedBox(width: 16),
-                            Text('${quantity?.pcs} Pcs'),
+                            Expanded(child: Text('${quantity?.pcs} Pcs')),
                           ],
                         ),
                       ),
