@@ -49,22 +49,22 @@ class AppTheme {
         activeColor: AppColors.primary,
         accentColor: fl.Colors.blue,
         fontFamily: "Poppins",
-        brightness: Brightness.light,
+        brightness: fl.Brightness.light,
       );
     } else {
       return fl.ThemeData(
         activeColor: AppColors.primary,
         accentColor: fl.Colors.blue,
         fontFamily: "Poppins",
-        brightness: Brightness.dark,
+        brightness: fl.Brightness.dark,
       );
     }
   }
 }
 
-extension DarkMode on BuildContext {
+extension DarkMode on fl.BuildContext {
   bool isDarkMode() {
     final brightness = MediaQuery.of(this).platformBrightness;
-    return brightness == Brightness.dark;
+    return brightness == fl.Brightness.dark;
   }
 }

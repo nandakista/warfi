@@ -1,6 +1,6 @@
 import 'package:desktop_base/themes/app_colors.dart';
+import 'package:desktop_base/themes/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget {
   final Color? backgroundColor, textColor;
@@ -28,7 +28,7 @@ class CustomAppBar extends StatelessWidget {
         title,
         style: TextStyle(
           color: (textColor == null)
-              ? (context.isDarkMode)
+              ? (context.isDarkMode())
                   ? Colors.white
                   : Colors.black
               : textColor,
@@ -36,7 +36,7 @@ class CustomAppBar extends StatelessWidget {
         ),
       ),
       backgroundColor:
-          (context.isDarkMode) ? AppColors.baseDark : AppColors.baseLight,
+          (context.isDarkMode()) ? AppColors.baseDark : AppColors.baseLight,
       elevation: 0,
       leading: (canBack!)
           ? Padding(
@@ -45,7 +45,7 @@ class CustomAppBar extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back),
                 onPressed: onPress,
                 iconSize: 24,
-                color: (context.isDarkMode) ? Colors.white : Colors.black,
+                color: (context.isDarkMode()) ? Colors.white : Colors.black,
               ),
             )
           : Container(),

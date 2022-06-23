@@ -31,7 +31,8 @@ class ListProductPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 30),
-                SvgPicture.asset('assets/images/img_empty_product.svg', width: 300),
+                SvgPicture.asset('assets/images/img_empty_product.svg',
+                    width: 300),
                 const SizedBox(height: 30),
                 Center(
                     child: Text(
@@ -50,11 +51,6 @@ class ListProductPage extends StatelessWidget {
                 Product item = data[index];
                 Quantity? quantity = item.quantity;
                 return ListTile(
-                  // trailing: IconButton(
-                  //   icon: const Icon(fl.FluentIcons.edit_solid12),
-                  //   color: AppColors.secondary,
-                  //   onPressed: () {},
-                  // ),
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -63,8 +59,8 @@ class ListProductPage extends StatelessWidget {
                         child: Row(
                           children: [
                             const SizedBox(
-                              width: 60,
-                              height: 60,
+                              width: 40,
+                              height: 40,
                               child: Image(
                                   image: AssetImage(
                                     'assets/images/img_register.png',
@@ -80,9 +76,10 @@ class ListProductPage extends StatelessWidget {
                                   children: [
                                     Text(
                                       item.name.toString(),
-                                      style: AppStyle.subtitle2,
+                                      style: AppStyle.subtitle3,
                                     ),
-                                    Text(AppConverter.toIDR(amount: item.price ?? 0)),
+                                    Text(AppConverter.toIDR(
+                                        amount: item.price ?? 0)),
                                   ],
                                 ),
                               ),
@@ -103,6 +100,7 @@ class ListProductPage extends StatelessWidget {
                             Expanded(child: Text('${quantity?.pack} Pack')),
                             const SizedBox(width: 16),
                             Expanded(child: Text('${quantity?.pcs} Pcs')),
+                            InkWell(onTap: (){},child: const Icon(fl.FluentIcons.edit_solid12, color: AppColors.primary,),)
                           ],
                         ),
                       )

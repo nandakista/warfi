@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:desktop_base/app/app_constant.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 
 class SizeValidator {
   static Future<bool> lessThan(String filepath, int sizeMb) async {
@@ -11,7 +10,7 @@ class SizeValidator {
     var size = (bytes/1024)/1000;
     debugPrint('Size Validator : $size MB');
     if(size >= sizeMb) {
-      Get.snackbar('Gagal', AppConst.validSize);
+      // Get.snackbar('Gagal', AppConst.validSize);
       return false;
     }
     return true;

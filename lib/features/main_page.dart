@@ -1,15 +1,14 @@
 import 'package:desktop_base/app/app_constant.dart';
 import 'package:desktop_base/features/about/about_page.dart';
 import 'package:desktop_base/features/home/home_routes.dart';
-import 'package:desktop_base/features/product/add_product/add_product_page.dart';
 import 'package:desktop_base/features/product/product_routes.dart';
 import 'package:desktop_base/features/transaction/transaction_page.dart';
 import 'package:desktop_base/helper/base_navigator.dart';
 import 'package:desktop_base/themes/app_colors.dart';
 import 'package:desktop_base/themes/app_style.dart';
+import 'package:desktop_base/themes/app_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -24,8 +23,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          (Get.isDarkMode) ? AppColors.baseDark : AppColors.baseLight,
+      backgroundColor: (context.isDarkMode()) ? AppColors.baseDark : AppColors.baseLight,
       body: NavigationView(
         appBar: NavigationAppBar(
           title: Text(

@@ -17,20 +17,21 @@ class AboutPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(AppConst.appName, style: AppStyle.headline1),
-            const Text(AppConst.appTag),
+            Text(AppConst.appTag, style: AppStyle.subtitle3,),
             const SizedBox(height: 30),
-            const Text(
+            Text(
               'This is Base Code for Desktop Application Project using Flutter Framework\n'
               'The Code was developed using : \n'
               '1. Fluent UI\n'
               '2. Dio\n'
               '3. Moor Database\n',
+              style: AppStyle.subtitle4,
             ),
             const Spacer(),
-            const Text('Created by Varcant',
-                style: TextStyle(fontWeight: FontWeight.w300)),
+            Text('Created by Varcant',
+                style: AppStyle.normal.copyWith(fontWeight: FontWeight.w300)),
             const SizedBox(height: 12),
-            const Text(AppConst.copyright)
+            Text(AppConst.copyright, style: AppStyle.subtitle4,)
           ],
         ),
       ),

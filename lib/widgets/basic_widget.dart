@@ -1,7 +1,7 @@
 import 'package:desktop_base/themes/app_colors.dart';
+import 'package:desktop_base/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
 
 Widget loadingIndicator =
     const SpinKitThreeBounce(size: 45, color: Colors.blue);
@@ -45,8 +45,8 @@ class CustomCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius!),
           // color: backgroundColor,
           color: backgroundColor ??
-              ((Get.isDarkMode)
-                  ? context.theme.dialogBackgroundColor
+              ((context.isDarkMode())
+                  ? AppColors.systemBgDark
                   : Colors.white),
         ),
         child: child,
@@ -80,7 +80,7 @@ class ActionIcon extends StatelessWidget {
             icon: Icon(
               icon,
               color:
-                  color ?? ((context.isDarkMode) ? Colors.white : Colors.black),
+                  color ?? ((context.isDarkMode()) ? Colors.white : Colors.black),
               size: 32,
             ),
           ),
@@ -156,7 +156,7 @@ class MyBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: padding,
-      color: (Get.isDarkMode) ? AppColors.baseDark : color,
+      color: (context.isDarkMode()) ? AppColors.baseDark : color,
       child: child,
     );
   }

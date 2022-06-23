@@ -1,7 +1,7 @@
-import 'package:get/get.dart';
+import 'package:desktop_base/app/app_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final SharedPreferences prefs = Get.find<SharedPreferences>();
+final SharedPreferences prefs = locator<SharedPreferences>();
 class KeyPrefs {
   static const firstOpen = 'onboarding';
 }

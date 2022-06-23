@@ -1,9 +1,9 @@
 import 'package:desktop_base/themes/app_colors.dart';
 import 'package:desktop_base/themes/app_style.dart';
+import 'package:desktop_base/themes/app_theme.dart';
 import 'package:desktop_base/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class CustomDialog extends StatelessWidget {
@@ -28,13 +28,13 @@ class CustomDialog extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 100, 16, 16),
                 margin: const EdgeInsets.only(top: 16),
                 decoration: BoxDecoration(
-                  color: (context.isDarkMode) ? Colors.black : Colors.white,
+                  color: (context.isDarkMode()) ? Colors.black : Colors.white,
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(17),
                   boxShadow: [
                     BoxShadow(
                         color:
-                        (context.isDarkMode) ? AppColors.primary : Colors.black,
+                        (context.isDarkMode()) ? AppColors.primary : Colors.black,
                         offset: const Offset(0.0, 0.0),
                         blurRadius: 10.0)
                   ],
@@ -67,7 +67,7 @@ class LoadingDialog extends StatelessWidget {
             borderRadius: BorderRadius.circular(17),
             boxShadow: [
               BoxShadow(
-                  color: (context.isDarkMode) ? AppColors.primary : Colors.black26,
+                  color: (context.isDarkMode()) ? AppColors.primary : Colors.black26,
                   offset: const Offset(0.0, 2.0),
                   blurRadius: 10.0)
             ]),
@@ -163,13 +163,13 @@ class DialogAlert extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 100, 16, 16),
               margin: const EdgeInsets.only(top: 16),
               decoration: BoxDecoration(
-                  color: (context.isDarkMode) ? Colors.black : Colors.white,
+                  color: (context.isDarkMode()) ? Colors.black : Colors.white,
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(17),
                   boxShadow: [
                     BoxShadow(
                         color:
-                            (context.isDarkMode) ? AppColors.primary : Colors.black,
+                            (context.isDarkMode()) ? AppColors.primary : Colors.black,
                         offset: const Offset(0.0, 0.0),
                         blurRadius: 10.0)
                   ]),
@@ -255,7 +255,7 @@ class SoonDialog extends StatelessWidget {
           Align(
             alignment: Alignment.bottomRight,
             child: CustomButton(
-              onPress: () => Get.back(),
+              onPress: () => Navigator.of(context, rootNavigator: true).pop(),
               text: 'OK',
               color: AppColors.primary,
             ),

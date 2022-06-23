@@ -30,22 +30,15 @@ class MyApp extends fluent.StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AddProductProvider()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
-        theme: AppTheme.material(theme: ThemeConf.LIGHT),
-        darkTheme: AppTheme.material(theme: ThemeConf.DARK),
-        themeMode: ThemeMode.light,
-        home: fluent.FluentApp(
+        child: fluent.FluentApp(
           title: AppConst.appName,
           debugShowCheckedModeBanner: false,
           scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
           theme: AppTheme.fluent(theme: ThemeConf.LIGHT),
           darkTheme: AppTheme.fluent(theme: ThemeConf.DARK),
-          themeMode: ThemeMode.light,
+          themeMode: ThemeMode.system,
           home: const MainPage(),
-        ),
-      ),
+        )
     );
   }
 }
