@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fl;
 import 'package:flutter/material.dart';
 
-
 enum ThemeConf {
   LIGHT,
   DARK,
@@ -60,5 +59,12 @@ class AppTheme {
         brightness: Brightness.dark,
       );
     }
+  }
+}
+
+extension DarkMode on BuildContext {
+  bool isDarkMode() {
+    final brightness = MediaQuery.of(this).platformBrightness;
+    return brightness == Brightness.dark;
   }
 }

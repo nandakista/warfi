@@ -14,14 +14,14 @@ class Toast {
 
 //---------------<Loading Dialog>-----------------
 class Loading {
-  static show() {
+  static show(BuildContext context) {
     return showDialog(
         barrierDismissible: false,
-        context: Get.context!,
+        context: context,
         builder: (context) => const LoadingDialog());
   }
 
-  static hide() => Get.back();
+  static hide(BuildContext context) => Navigator.of(context, rootNavigator: true).pop();
 }
 
 //---------------<Custom Dialog>-----------------
@@ -33,8 +33,9 @@ enum TypeDialog {
 }
 
 class AppDialog {
-  static show({
-    required TypeDialog typeDialog,
+  static show(
+    {required BuildContext context,
+      required TypeDialog typeDialog,
     String? title,
     required String message,
     required VoidCallback onPress,
@@ -44,7 +45,7 @@ class AppDialog {
       case TypeDialog.FAILED:
         return showDialog(
           barrierDismissible: dismissible ?? true,
-          context: Get.context!,
+          context: context,
           builder: (context) => DialogAlert.error(
             title: title ?? 'Gagal',
             description: message,
@@ -54,7 +55,7 @@ class AppDialog {
       case TypeDialog.SUCCESS:
         return showDialog(
           barrierDismissible: dismissible ?? false,
-          context: Get.context!,
+          context: context,
           builder: (context) => DialogAlert.success(
             title: title ?? 'Berhasil',
             description: message,
@@ -64,22 +65,22 @@ class AppDialog {
       case TypeDialog.WARNING:
         return showDialog(
           barrierDismissible: dismissible ?? true,
-          context: Get.context!,
+          context: context,
           builder: (context) => DialogAlert.warning(
             title: title ?? 'Peringatan!',
             description: message,
             onConfirm: onPress,
-            onCancel: () => Get.back(),
+            onCancel: () => Navigator.of(context, rootNavigator: true).pop(),
           ),
         );
       case TypeDialog.SOON:
         return showDialog(
           barrierDismissible: dismissible ?? true,
-          context: Get.context!,
+          context: context,
           builder: (context) => const SoonDialog(),
         );
     }
   }
 
-  static close() => Get.back();
+  static close(BuildContext context) => Navigator.of(context, rootNavigator: true).pop();
 }

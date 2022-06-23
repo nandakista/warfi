@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-import 'package:get/get.dart';
+import 'package:desktop_base/app/app_service.dart';
 
 enum Flavors {
   PRODUCTION,
@@ -8,7 +8,7 @@ enum Flavors {
 }
 
 class AppConfig {
-  static AppConfig get to => Get.find<AppConfig>();
+  static AppConfig get to => locator<AppConfig>();
 
   late Config appConfig;
   Config get get => appConfig;

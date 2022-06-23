@@ -76,7 +76,16 @@ class AddProductPage extends StatelessWidget {
             icon: FluentIcons.add,
             fontWeight: FontWeight.bold,
             onPress: () {
-              provider.setResult();
+              provider.addProduct(context);
+            },
+          ),
+
+          CustomButton(
+            text: 'Get Barang',
+            icon: FluentIcons.add,
+            fontWeight: FontWeight.bold,
+            onPress: () {
+              provider.getProduct(context);
             },
           ),
         ],

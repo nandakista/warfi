@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:desktop_base/api/api_config.dart';
 import 'package:desktop_base/api/api_exception.dart';
-import 'package:desktop_base/api/api_message.dart';
-import 'package:desktop_base/database/get_storage.dart';
 import 'package:desktop_base/api/api_response.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +11,6 @@ enum RequestMethod { GET, POST, PATCH, PUT, DELETE }
 
 Map<String, String> headers = {
   HttpHeaders.authorizationHeader: '',
-  // 'Client-Token': 'EY5WGBIXosmK5f2Jckxt52Gm9p8sv1VEMjYzozArzb0=',
 };
 
 Future<ApiResponse> sendRequest({
@@ -24,7 +21,8 @@ Future<ApiResponse> sendRequest({
   String? contentType = Headers.jsonContentType,
 }) async {
   DioClient.setInterceptor();
-  var apiToken = LocalStorage.to.isLoggedIn() ? LocalStorage.to.getToken() : null;
+  // var apiToken = LocalStorage.to.isLoggedIn() ? LocalStorage.to.getToken() : null;
+  var apiToken = '';
   if (useToken) {
     headers[HttpHeaders.authorizationHeader] = 'Bearer $apiToken';
   } else {
@@ -36,19 +34,13 @@ Future<ApiResponse> sendRequest({
       case RequestMethod.POST:
         try {
           debugPrint('Request Body : ${FormData.fromMap(body as Map<String, dynamic>).fields}');
-          final responseBody = await dioClient.post(
+          response = await dioClient.post(
             url,
             data: contentType == Headers.jsonContentType
                 ? jsonEncode(body)
                 : FormData.fromMap(body),
             options: Options(headers: headers, contentType: contentType),
           );
-          final baseResponse = ApiResponse.fromJson(responseBody.data);
-          if(baseResponse.success) {
-            response = responseBody;
-          } else {
-            throw ApiMessage.message(baseResponse.error);
-          }
         } on SocketException {
           throw 'Tidak ada koneksi internet!';
         } on DioError catch (error) {
@@ -57,16 +49,10 @@ Future<ApiResponse> sendRequest({
         break;
       case RequestMethod.GET:
         try {
-          var responseBody = await dioClient.get(
+          response = await dioClient.get(
             url,
             options: Options(contentType: contentType, headers: headers),
           );
-          final baseResponse = ApiResponse.fromJson(responseBody.data);
-          if(baseResponse.success) {
-            response = responseBody;
-          } else {
-            throw ApiMessage.message(baseResponse.error);
-          }
         } on SocketException {
           throw 'Tidak ada koneksi internet!';
         } on DioError catch (error) {
@@ -75,19 +61,13 @@ Future<ApiResponse> sendRequest({
         break;
       case RequestMethod.PATCH:
         try {
-          final responseBody = await dioClient.patch(
+          response = await dioClient.patch(
             url,
             data: contentType == Headers.jsonContentType
                 ? jsonEncode(body)
                 : FormData.fromMap(body as Map<String, dynamic>),
             options: Options(headers: headers, contentType: contentType),
           );
-          final baseResponse = ApiResponse.fromJson(responseBody.data);
-          if(baseResponse.success) {
-            response = responseBody;
-          } else {
-            throw ApiMessage.message(baseResponse.error);
-          }
         } on SocketException {
           throw 'Tidak ada koneksi internet!';
         } on DioError catch (error) {
@@ -124,43 +104,6 @@ Future<ApiResponse> sendRequest({
     }
     return ApiResponse.fromJson(response.data);
   } catch (error) {
-    rethrow;
-  }
-}
-
-enum StampMethod { POST }
-
-Future<Response> stampRequest({
-  required String url,
-  Object? body,
-  required StampMethod stampMethod,
-  bool useToken = false,
-  String? contentType = Headers.jsonContentType,
-}) async {
-  var apiToken = LocalStorage.to.isLoggedIn() ? LocalStorage.to.getToken() : null;
-  if (useToken) {
-    headers[HttpHeaders.authorizationHeader] = 'Bearer $apiToken';
-  }
-  try {
-    Response response;
-    switch (stampMethod) {
-      case StampMethod.POST:
-        try {
-          response = await dioClient.post(
-            url,
-            data: contentType == Headers.jsonContentType
-                ? jsonEncode(body)
-                : FormData.fromMap(body as Map<String, dynamic>),
-            options: Options(headers: headers, contentType: contentType),
-          );
-        } on SocketException {
-          throw 'Tidak ada koneksi internet!';
-        } on DioError catch (error) {
-          throw DioException.message(error);
-        }
-    }
-    return response;
-  } catch (err) {
     rethrow;
   }
 }
