@@ -33,13 +33,14 @@ class AppDatabase extends _$AppDatabase {
   Future insertProduct(ProductEntityCompanion product) async => await into(productEntity).insert(product);
   Future updateProduct(ProductEntityCompanion product) async => await update(productEntity).replace(product);
   Future deleteProduct(int id) async => await (delete(productEntity)..where((tbl) => tbl.id.equals(id))).go();
+  Future deleteAll(ProductEntityCompanion product) async => await (delete(productEntity).delete(product));
 }
 
 AppDatabase openConnection({bool logStatements = false}) {
   if (Platform.isMacOS || Platform.isWindows) {
     final executor = LazyDatabase(() async {
       final dataDir = await getApplicationDocumentsDirectory();
-      final dbFile = File(p.join(dataDir.path, 'product.sqlite'));
+      final dbFile = File(p.join(dataDir.path, 'products.sqlite'));
       return NativeDatabase(dbFile, logStatements: logStatements);
     });
     return AppDatabase(executor);

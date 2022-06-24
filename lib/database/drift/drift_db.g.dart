@@ -11,7 +11,7 @@ class ProductEntityData extends DataClass
     implements Insertable<ProductEntityData> {
   final int id;
   final String name;
-  final String price;
+  final int price;
   final int box;
   final int bal;
   final int pack;
@@ -32,7 +32,7 @@ class ProductEntityData extends DataClass
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       name: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
-      price: const StringType()
+      price: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}price'])!,
       box: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}box'])!,
@@ -49,7 +49,7 @@ class ProductEntityData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['name'] = Variable<String>(name);
-    map['price'] = Variable<String>(price);
+    map['price'] = Variable<int>(price);
     map['box'] = Variable<int>(box);
     map['bal'] = Variable<int>(bal);
     map['pack'] = Variable<int>(pack);
@@ -75,7 +75,7 @@ class ProductEntityData extends DataClass
     return ProductEntityData(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      price: serializer.fromJson<String>(json['price']),
+      price: serializer.fromJson<int>(json['price']),
       box: serializer.fromJson<int>(json['box']),
       bal: serializer.fromJson<int>(json['bal']),
       pack: serializer.fromJson<int>(json['pack']),
@@ -88,7 +88,7 @@ class ProductEntityData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
-      'price': serializer.toJson<String>(price),
+      'price': serializer.toJson<int>(price),
       'box': serializer.toJson<int>(box),
       'bal': serializer.toJson<int>(bal),
       'pack': serializer.toJson<int>(pack),
@@ -99,7 +99,7 @@ class ProductEntityData extends DataClass
   ProductEntityData copyWith(
           {int? id,
           String? name,
-          String? price,
+          int? price,
           int? box,
           int? bal,
           int? pack,
@@ -145,7 +145,7 @@ class ProductEntityData extends DataClass
 class ProductEntityCompanion extends UpdateCompanion<ProductEntityData> {
   final Value<int> id;
   final Value<String> name;
-  final Value<String> price;
+  final Value<int> price;
   final Value<int> box;
   final Value<int> bal;
   final Value<int> pack;
@@ -162,7 +162,7 @@ class ProductEntityCompanion extends UpdateCompanion<ProductEntityData> {
   ProductEntityCompanion.insert({
     this.id = const Value.absent(),
     required String name,
-    required String price,
+    required int price,
     required int box,
     required int bal,
     required int pack,
@@ -176,7 +176,7 @@ class ProductEntityCompanion extends UpdateCompanion<ProductEntityData> {
   static Insertable<ProductEntityData> custom({
     Expression<int>? id,
     Expression<String>? name,
-    Expression<String>? price,
+    Expression<int>? price,
     Expression<int>? box,
     Expression<int>? bal,
     Expression<int>? pack,
@@ -196,7 +196,7 @@ class ProductEntityCompanion extends UpdateCompanion<ProductEntityData> {
   ProductEntityCompanion copyWith(
       {Value<int>? id,
       Value<String>? name,
-      Value<String>? price,
+      Value<int>? price,
       Value<int>? box,
       Value<int>? bal,
       Value<int>? pack,
@@ -222,7 +222,7 @@ class ProductEntityCompanion extends UpdateCompanion<ProductEntityData> {
       map['name'] = Variable<String>(name.value);
     }
     if (price.present) {
-      map['price'] = Variable<String>(price.value);
+      map['price'] = Variable<int>(price.value);
     }
     if (box.present) {
       map['box'] = Variable<int>(box.value);
@@ -274,9 +274,9 @@ class $ProductEntityTable extends ProductEntity
       type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _priceMeta = const VerificationMeta('price');
   @override
-  late final GeneratedColumn<String?> price = GeneratedColumn<String?>(
+  late final GeneratedColumn<int?> price = GeneratedColumn<int?>(
       'price', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
+      type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _boxMeta = const VerificationMeta('box');
   @override
   late final GeneratedColumn<int?> box = GeneratedColumn<int?>(

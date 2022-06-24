@@ -6,18 +6,17 @@ import 'package:desktop_base/widgets/content_wrapper.dart';
 import 'package:desktop_base/widgets/custom_button.dart';
 import 'package:desktop_base/widgets/custom_form_field.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddProductPage extends StatelessWidget {
   static const String route = '/add-product';
   const AddProductPage({Key? key}) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AddProductProvider>(context);
-    // final provider = context.read<AddProductProvider>();
-
     return ContentWrapper(
       title: 'Tambah Produk',
       child: ListView(
@@ -86,6 +85,15 @@ class AddProductPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
             onPress: () {
               provider.getProduct(context);
+            },
+          ),
+
+          CustomButton(
+            text: 'Delete',
+            icon: FluentIcons.add,
+            fontWeight: FontWeight.bold,
+            onPress: () {
+              provider.delete(context);
             },
           ),
         ],

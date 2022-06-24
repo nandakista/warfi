@@ -10,22 +10,18 @@ class AddProductProvider with ChangeNotifier {
   final pcsController = TextEditingController();
   final balController = TextEditingController();
   final packController = TextEditingController();
-  // String? result;
 
-  addProduct(BuildContext context) async {
+  Future<void> addProduct(BuildContext context) async {
     Loading.show(context);
     try {
       await locator<AppDatabase>()
-          .insertProduct(
-        ProductEntityCompanion.insert(
-          name: nameController.text,
-          price: priceController.text,
-          box: int.tryParse(boxController.text) ?? 0,
-          bal: int.tryParse(balController.text) ?? 0,
-          pack: int.tryParse(packController.text) ?? 0,
-          pcs: int.tryParse(pcsController.text) ?? 0,
-        ),
-      )
+          .insertProduct(ProductEntityCompanion.insert(
+              name: nameController.text,
+              price: int.tryParse(priceController.text) ?? 0,
+              box: int.tryParse(boxController.text) ?? 0,
+              bal: int.tryParse(balController.text) ?? 0,
+              pack: int.tryParse(packController.text) ?? 0,
+              pcs: int.tryParse(pcsController.text) ?? 0))
           .then(
         (value) {
           Loading.hide(context);
@@ -54,5 +50,10 @@ class AddProductProvider with ChangeNotifier {
   getProduct(BuildContext context) async {
     final allProduct = await locator<AppDatabase>().getAllProduct();
     print('All Product : $allProduct');
+  }
+
+  delete(BuildContext context) async {
+    // final allProduct = await locator<AppDatabase>().deleteAll(product);
+    // print('All Product : $allProduct');
   }
 }
