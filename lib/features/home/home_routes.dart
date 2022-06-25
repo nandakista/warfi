@@ -9,7 +9,7 @@ Widget homeRoute(String? url) {
     case HomePage.route:
       return const HomePage();
     default:
-      return const HomePage();
+      return const AddProductPage();
   }
 }
 

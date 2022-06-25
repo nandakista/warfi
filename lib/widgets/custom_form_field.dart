@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomFieldForm extends StatelessWidget {
-  final String? label, hint, endText;
+  final String? label, hint, endText, startText;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final IconData icon;
@@ -40,6 +40,7 @@ class CustomFieldForm extends StatelessWidget {
     this.onChanged,
     this.readOnly = false,
     this.endText,
+    this.startText,
   }) : super(key: key);
 
   @override
@@ -67,7 +68,16 @@ class CustomFieldForm extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           border: InputBorder.none,
-          prefixIcon: Icon(icon),
+          prefixIcon: (startText == null) ? Icon(icon): Align(
+            widthFactor: 1,
+            alignment: Alignment.center,
+            child: Text(
+              startText.toString(),
+              style: AppStyle.subtitle4.copyWith(
+                color: AppColors.systemDarkGrey,
+              ),
+            ),
+          ),
           suffixIcon: (endText == null)
               ? Icon(endIcon)
               : Align(
