@@ -30,18 +30,14 @@ class AddProductPage extends StatelessWidget {
             _buildField('Nama Barang', 'Nama', provider.nameController,
                 icon: FluentIcons.product_catalog),
             const SizedBox(height: 24),
-            _buildField(
-              'Harga',
-              'Harga',
-              provider.priceController,
-              icon: FluentIcons.money,
-              inputFormatter: <TextInputFormatter> [
-                FilteringTextInputFormatter.digitsOnly,
-                CurrencyInputFormatter()
-              ],
-              // startText: 'Rp',
-              endText: 'Rupiah'
-            ),
+            _buildField('Harga', 'Harga', provider.priceController,
+                icon: FluentIcons.money,
+                inputFormatter: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                  CurrencyInputFormatter()
+                ],
+                // startText: 'Rp',
+                endText: 'Rupiah'),
             const SizedBox(height: 24),
             Text('Jumlah', style: AppStyle.subtitle3),
             const SizedBox(height: 8),
@@ -96,13 +92,14 @@ class AddProductPage extends StatelessWidget {
           ],
         ),
       ),
-      // ),
     );
   }
 
   _buildField(String title, String hint, TextEditingController controller,
-
-      {IconData? icon, String? startText, String? endText, List<TextInputFormatter>? inputFormatter}) {
+      {IconData? icon,
+      String? startText,
+      String? endText,
+      List<TextInputFormatter>? inputFormatter}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

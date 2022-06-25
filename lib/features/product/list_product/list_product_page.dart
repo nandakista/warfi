@@ -18,15 +18,28 @@ class ListProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ListProductProvider>(context);
+    final provider = Provider.of<ListProductProvider>(context, listen: false);
     return RefreshIndicator(
       onRefresh: () async => provider.init(),
       child: ContentWrapper(
         title: 'Product List',
         canBack: false,
+        action: [
+          IconButton(
+              onPressed: () => provider.init(),
+              icon: const Icon(
+                Icons.refresh,
+                size: 24,
+                color: AppColors.systemDarkGrey,
+              )),
+          const SizedBox(
+            width: 30,
+          ),
+        ],
         floatingActionButton: FloatingActionButton(
           onPressed: () => Navigator.pushNamed(context, AddProductPage.route)
               .then((value) => provider.init()),
+          backgroundColor: AppColors.primary,
           child: const Icon(
             Icons.add,
             color: Colors.white,
@@ -89,7 +102,6 @@ class ListProductPage extends StatelessWidget {
       itemCount: data.length,
       itemBuilder: (_, index) {
         ProductEntityData item = data[index];
-        // Quantity? quantity = item.quantity;
         return ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

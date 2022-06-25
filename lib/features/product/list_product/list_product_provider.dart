@@ -2,7 +2,7 @@ import 'package:desktop_base/app/app_service.dart';
 import 'package:desktop_base/database/drift/drift_db.dart';
 import 'package:flutter/material.dart';
 
-enum ResultState { LOADING, EMPTY, SUCCESS, ERROR }
+enum ResultState { LOADING, EMPTY, ERROR, SUCCESS}
 
 class ListProductProvider with ChangeNotifier {
 

@@ -1,4 +1,6 @@
+import 'package:desktop_base/database/drift/drift_db.dart';
 import 'package:desktop_base/features/home/component/header_card_component.dart';
+import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
 import 'package:desktop_base/models/product.dart';
 import 'package:desktop_base/models/quantity.dart';
@@ -9,6 +11,7 @@ import 'package:desktop_base/widgets/content_wrapper.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fl;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   static const String route = '/home';
@@ -16,7 +19,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Product> data = dummyProduct;
     return ContentWrapper(
       title: 'Home',
       canBack: false,
@@ -33,7 +35,29 @@ class HomePage extends StatelessWidget {
           children: [
             ..._buildHeader(),
             const SizedBox(height: 30),
-            _buildBody(context, data),
+            Consumer<ListProductProvider>(
+              builder: (ctx, provider, _) {
+                final data = provider.listProduct;
+                switch (provider.state) {
+                  case ResultState.LOADING:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case ResultState.EMPTY:
+                    return _buildEmptyData(
+                      message: provider.message,
+                      imageUri: 'assets/images/img_empty_product.svg',
+                    );
+                  case ResultState.ERROR:
+                    return _buildEmptyData(
+                      message: provider.message,
+                      imageUri: 'assets/images/img_empty_product.svg',
+                    );
+                  case ResultState.SUCCESS:
+                    return _buildListProduct(context: context, data: data);
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -66,98 +90,123 @@ class HomePage extends StatelessWidget {
     ];
   }
 
-  _buildBody(BuildContext context, List<Product> data) {
-    if(data.isEmpty) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 60),
-          SvgPicture.asset('assets/images/img_empty_product.svg', width: 250),
-          const SizedBox(height: 30),
-          Center(child: Text('Anda belum \nmenambahkan Produk', textAlign: TextAlign.center,  style: AppStyle.subtitle1,)),
-        ],
-      );
-    } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ListTile(
-            title: Row(
-              children: [
-                Flexible(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: const Text('Product',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                Flexible(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: const Text('Harga',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                Flexible(
-                  flex: 2,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: const Text('Kuantitas',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                ),
-              ],
-            ),
+  _buildEmptyData({required String message, required String imageUri}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(height: 60),
+        SvgPicture.asset('assets/images/img_empty_product.svg', width: 250),
+        const SizedBox(height: 30),
+        Center(
+            child: Text(
+          'Anda belum \nmenambahkan Produk',
+          textAlign: TextAlign.center,
+          style: AppStyle.subtitle1,
+        )),
+      ],
+    );
+  }
+
+  _buildListProduct({
+    required BuildContext context,
+    required List<ProductEntityData> data,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 16),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '5 Produk terbaru',
+                style: AppStyle.subtitle1.copyWith(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'yang baru ditambahkan',
+                style: AppStyle.subtitle3,
+              ),
+              const SizedBox(height: 24),
+            ],
           ),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (_, index) => const Divider(),
-            itemCount: data.length < 8 ? data.length : 8,
-            itemBuilder: (_, index) {
-              Product item = data[index];
-              Quantity? quantity = item.quantity;
-              return ListTile(
-                title: Row(
-                  children: [
-                    Flexible(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(item.name.toString()),
+        ),
+        ListTile(
+          title: Row(
+            children: [
+              Flexible(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const Text('Product',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+              Flexible(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const Text('Harga',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+              Flexible(
+                flex: 2,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const Text('Kuantitas',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ],
+          ),
+        ),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          separatorBuilder: (_, index) => const Divider(),
+          itemCount: data.length < 8 ? data.length : 8,
+          itemBuilder: (_, index) {
+            ProductEntityData item = data[index];
+            return ListTile(
+              title: Row(
+                children: [
+                  Flexible(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(item.name.toString()),
+                    ),
+                  ),
+                  Flexible(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(AppConverter.toIDR(amount: item.price)),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(child: Text('${item.box} Dus')),
+                          const SizedBox(width: 16),
+                          Expanded(child: Text('${item.bal} Bal')),
+                          const SizedBox(width: 16),
+                          Expanded(child: Text('${item.pack} Pack')),
+                          const SizedBox(width: 16),
+                          Expanded(child: Text('${item.pcs} Pcs')),
+                        ],
                       ),
                     ),
-                    Flexible(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(AppConverter.toIDR(amount: item.price ?? 0)),
-                      ),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Expanded(child: Text('${quantity?.box} Dus')),
-                            const SizedBox(width: 16),
-                            Expanded(child: Text('${quantity?.bal} Bal')),
-                            const SizedBox(width: 16),
-                            Expanded(child: Text('${quantity?.pack} Pack')),
-                            const SizedBox(width: 16),
-                            Expanded(child: Text('${quantity?.pcs} Pcs')),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
-        ],
-      );
-    }
+                  )
+                ],
+              ),
+            );
+          },
+        ),
+      ],
+    );
   }
 }
