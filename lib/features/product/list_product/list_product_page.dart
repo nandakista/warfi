@@ -20,12 +20,13 @@ class ListProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<ListProductProvider>(context);
     return RefreshIndicator(
-      onRefresh: () async => provider.getListProduct(),
+      onRefresh: () async => provider.init(),
       child: ContentWrapper(
         title: 'Product List',
         canBack: false,
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, AddProductPage.route),
+          onPressed: () => Navigator.pushNamed(context, AddProductPage.route)
+              .then((value) => provider.init()),
           child: const Icon(
             Icons.add,
             color: Colors.white,
@@ -44,13 +45,14 @@ class ListProductPage extends StatelessWidget {
                   message: provider.message,
                   imageUri: 'assets/images/img_empty_product.svg',
                 );
-              case ResultState.SUCCESS:
-                return _buildListProduct(context: context, data: data);
               case ResultState.ERROR:
                 return _buildEmptyData(
                   message: 'Terjadi kesalahan ${provider.message}',
                   imageUri: 'assets/images/img_empty_product.svg',
                 );
+              case ResultState.SUCCESS:
+                return _buildListProduct(
+                    context: context, data: data, provider: provider);
             }
           },
         ),
@@ -77,6 +79,7 @@ class ListProductPage extends StatelessWidget {
 
   Widget _buildListProduct({
     required BuildContext context,
+    required ListProductProvider provider,
     required List<ProductEntityData> data,
   }) {
     return ListView.separated(
@@ -113,9 +116,12 @@ class ListProductPage extends StatelessWidget {
                           children: [
                             Text(
                               item.name.toString(),
-                              style: AppStyle.subtitle3,
+                              style: AppStyle.subtitle4,
                             ),
-                            Text(AppConverter.toIDR(amount: item.price)),
+                            Text(
+                              AppConverter.toIDR(amount: item.price),
+                              style: AppStyle.normal,
+                            ),
                           ],
                         ),
                       ),
@@ -125,24 +131,39 @@ class ListProductPage extends StatelessWidget {
               ),
               const Spacer(),
               Flexible(
-                flex: 3,
+                flex: 4,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Expanded(child: Text('${item.box} Dus')),
+                    Expanded(
+                        child: Text('${item.box} Dus', style: AppStyle.small)),
                     const SizedBox(width: 16),
-                    Expanded(child: Text('${item.bal} Bal')),
+                    Expanded(
+                        child: Text('${item.bal} Bal', style: AppStyle.small)),
                     const SizedBox(width: 16),
-                    Expanded(child: Text('${item.pack} Pack')),
+                    Expanded(
+                        child:
+                            Text('${item.pack} Pack', style: AppStyle.small)),
                     const SizedBox(width: 16),
-                    Expanded(child: Text('${item.pcs} Pcs')),
+                    Expanded(
+                        child: Text('${item.pcs} Pcs', style: AppStyle.small)),
                     InkWell(
                       onTap: () {},
                       child: const Icon(
                         fl.FluentIcons.edit_solid12,
                         color: AppColors.primary,
                       ),
-                    )
+                    ),
+                    const SizedBox(width: 16),
+                    InkWell(
+                      onTap: () {
+                        provider.deleteProduct(item.id);
+                      },
+                      child: const Icon(
+                        fl.FluentIcons.delete,
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ],
                 ),
               )

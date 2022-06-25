@@ -12,11 +12,9 @@ class AddProductPage extends StatelessWidget {
   static const String route = '/add-product';
   const AddProductPage({Key? key}) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AddProductProvider>(context);
+    final provider = Provider.of<AddProductProvider>(context, listen: false);
     return ContentWrapper(
       title: 'Tambah Produk',
       child: ListView(
@@ -76,24 +74,6 @@ class AddProductPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
             onPress: () {
               provider.addProduct(context);
-            },
-          ),
-
-          CustomButton(
-            text: 'Get Barang',
-            icon: FluentIcons.add,
-            fontWeight: FontWeight.bold,
-            onPress: () {
-              provider.getProduct(context);
-            },
-          ),
-
-          CustomButton(
-            text: 'Delete',
-            icon: FluentIcons.add,
-            fontWeight: FontWeight.bold,
-            onPress: () {
-              provider.delete(context);
             },
           ),
         ],

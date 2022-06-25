@@ -36,7 +36,7 @@ class HeaderCardComponent extends StatelessWidget {
     if (screenWidth < 1000) {
        iconSize = iconSize/1.2;
        titleStyle = AppStyle.subtitle1;
-       subtitleStyle = AppStyle.normalSmall;
+       subtitleStyle = AppStyle.superSmall;
     }
 
     return Flexible(
@@ -115,7 +115,7 @@ class HeaderCardComponent extends StatelessWidget {
                           DateHelper(date: dateUpdate).format().toString(),
                           textAlign: TextAlign.end,
                           style:
-                              AppStyle.normalSmall.copyWith(color: textColor),
+                              AppStyle.superSmall.copyWith(color: textColor),
                         ),
                       ),
                     ],

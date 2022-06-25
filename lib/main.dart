@@ -29,8 +29,8 @@ class MyApp extends fluent.StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AddProductProvider()),
-        ChangeNotifierProvider(create: (_) => ListProductProvider().getListProduct()),
+        ChangeNotifierProvider(create: (context) => AddProductProvider()),
+        ChangeNotifierProvider(create: (context) => ListProductProvider().init()),
       ],
         child: fluent.FluentApp(
           title: AppConst.appName,

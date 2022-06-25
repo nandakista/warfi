@@ -12,7 +12,6 @@ class AddProductProvider with ChangeNotifier {
   final packController = TextEditingController();
 
   Future<void> addProduct(BuildContext context) async {
-    Loading.show(context);
     try {
       await locator<AppDatabase>()
           .insertProduct(ProductEntityCompanion.insert(
@@ -24,20 +23,20 @@ class AddProductProvider with ChangeNotifier {
               pcs: int.tryParse(pcsController.text) ?? 0))
           .then(
         (value) {
-          Loading.hide(context);
           AppDialog.show(
             context: context,
             typeDialog: TypeDialog.SUCCESS,
             message: 'Produk berhasil ditambahkan',
             onPress: () {
               AppDialog.close(context);
+              onClose();
+              Navigator.pop(context);
             },
           );
         },
       );
       notifyListeners();
     } catch (e) {
-      Loading.hide(context);
       AppDialog.show(
         context: context,
         typeDialog: TypeDialog.FAILED,
@@ -47,13 +46,12 @@ class AddProductProvider with ChangeNotifier {
     }
   }
 
-  getProduct(BuildContext context) async {
-    final allProduct = await locator<AppDatabase>().getAllProduct();
-    print('All Product : $allProduct');
-  }
-
-  delete(BuildContext context) async {
-    // final allProduct = await locator<AppDatabase>().deleteAll(product);
-    // print('All Product : $allProduct');
+  void onClose() {
+    nameController.clear();
+    priceController.clear();
+    boxController.clear();
+    balController.clear();
+    packController.clear();
+    pcsController.clear();
   }
 }

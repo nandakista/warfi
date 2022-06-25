@@ -25,7 +25,15 @@ class AppStyle {
     fontSize: 14,
     fontFamily: "Poppins",
   );
-  static TextStyle normalSmall = const TextStyle(
+  static TextStyle small = const TextStyle(
+    fontSize: 13,
+    fontFamily: "Poppins",
+  );
+  static TextStyle verySmall = const TextStyle(
+    fontSize: 12,
+    fontFamily: "Poppins",
+  );
+  static TextStyle superSmall = const TextStyle(
     fontSize: 11,
     fontFamily: "Poppins",
   );

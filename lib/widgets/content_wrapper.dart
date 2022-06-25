@@ -9,7 +9,7 @@ class ContentWrapper extends StatelessWidget {
   final String? title;
   final Widget? floatingActionButton;
   final bool? canBack;
-  final VoidCallback? onPress;
+  final VoidCallback? onBackPressed;
   final List<Widget>? action;
 
   const ContentWrapper({
@@ -18,7 +18,7 @@ class ContentWrapper extends StatelessWidget {
     this.title = "",
     this.floatingActionButton,
     this.canBack = true,
-    this.onPress,
+    this.onBackPressed,
     this.action,
   }) : super(key: key);
 
@@ -33,7 +33,7 @@ class ContentWrapper extends StatelessWidget {
           title: title!,
           action: action,
           canBack: canBack,
-          onPress: onPress ?? () => Navigator.pop(context),
+          onPress: onBackPressed ?? () => Navigator.pop(context),
         ),
       ),
       body: Container(

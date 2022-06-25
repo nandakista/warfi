@@ -15,7 +15,7 @@ class ListProductProvider with ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  ListProductProvider getListProduct() {
+  ListProductProvider init() {
     _getListProduct();
     return this;
   }
@@ -38,6 +38,20 @@ class ListProductProvider with ChangeNotifier {
       _state = ResultState.ERROR;
       debugPrint("Error : $e");
       return _message = 'Error --> $e';
+    }
+  }
+
+  deleteProduct(int id) async {
+    _state = ResultState.LOADING;
+    notifyListeners();
+    try {
+      _state = ResultState.SUCCESS;
+      locator<AppDatabase>().deleteProduct(id);
+      _getListProduct();
+      notifyListeners();
+    } catch (e) {
+      _state = ResultState.ERROR;
+      print('Error : $e');
     }
   }
 }
