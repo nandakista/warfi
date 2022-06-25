@@ -1,4 +1,5 @@
 import 'package:desktop_base/app/app_service.dart';
+import 'package:desktop_base/database/drift/dao/product_dao.dart';
 import 'package:desktop_base/database/drift/drift_db.dart';
 import 'package:desktop_base/helper/dialog_helper.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class AddProductProvider with ChangeNotifier {
   Future<void> addProduct(BuildContext context) async {
     if(validateField()){
       try {
-        await locator<AppDatabase>()
+        await locator<ProductDao>()
             .insertProduct(ProductEntityCompanion.insert(
             name: nameController.text,
             price: int.tryParse(priceController.text) ?? 0,

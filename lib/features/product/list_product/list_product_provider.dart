@@ -1,4 +1,5 @@
 import 'package:desktop_base/app/app_service.dart';
+import 'package:desktop_base/database/drift/dao/product_dao.dart';
 import 'package:desktop_base/database/drift/drift_db.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class ListProductProvider with ChangeNotifier {
     _state = ResultState.LOADING;
     notifyListeners();
     try {
-      final data = await locator<AppDatabase>().getAllProduct();
+      final data = await locator<ProductDao>().getAllProduct();
       if(data.isNotEmpty) {
         _state = ResultState.SUCCESS;
         notifyListeners();
@@ -46,7 +47,7 @@ class ListProductProvider with ChangeNotifier {
     notifyListeners();
     try {
       _state = ResultState.SUCCESS;
-      locator<AppDatabase>().deleteProduct(id);
+      locator<ProductDao>().deleteProduct(id);
       _getListProduct();
       notifyListeners();
     } catch (e) {
