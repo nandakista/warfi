@@ -96,6 +96,7 @@ class CustomFieldForm extends StatelessWidget {
           labelStyle: TextStyle(color: hintColor),
           hintStyle: TextStyle(color: hintColor),
         ),
+
         validator: validator,
         inputFormatters: inputFormatters,
       ),

@@ -34,6 +34,6 @@ class AppConverter {
   }
 
   static String toIDR({required int amount}){
-    return NumberFormat.currency(locale: 'id', symbol: 'Rp', decimalDigits: 0).format(amount);
+    return NumberFormat.currency(locale: 'id', symbol: 'Rp ', decimalDigits: 0).format(amount);
   }
 }
