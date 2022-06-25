@@ -1,4 +1,4 @@
-import 'package:desktop_base/database/drift/drift_db.dart';
+import 'package:desktop_base/database/drift/app_database.dart';
 import 'package:desktop_base/features/home/component/header_card_component.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';

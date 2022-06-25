@@ -1,4 +1,4 @@
-import 'package:desktop_base/database/drift/drift_db.dart';
+import 'package:desktop_base/database/drift/app_database.dart';
 import 'package:desktop_base/features/product/add_product/add_product_page.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
@@ -169,7 +169,7 @@ class ListProductPage extends StatelessWidget {
                     const SizedBox(width: 16),
                     InkWell(
                       onTap: () {
-                        provider.deleteProduct(item.id);
+                        provider.deleteProduct(item.idName);
                       },
                       child: const Icon(
                         fl.FluentIcons.delete,

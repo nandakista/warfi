@@ -3,8 +3,6 @@ import 'package:desktop_base/models/quantity.dart';
 class Product {
   final String? name;
   final int? price;
-  // final String? description;
-  // final String? image;
   final Quantity? quantity;
   final DateTime? createdAt;
   final DateTime? updateAt;
@@ -12,8 +10,6 @@ class Product {
   Product({
     this.name,
     this.price,
-    // this.description,
-    // this.image,
     this.quantity,
     this.createdAt,
     this.updateAt,
@@ -23,8 +19,6 @@ class Product {
     return Product(
       name: json['product_name'],
       price: json['product_price'],
-      // description: json['description'],
-      // image: json['product_image'],
       createdAt: json['created_at'],
       updateAt: json['update_at'],
     );
@@ -33,8 +27,6 @@ class Product {
   Map<String, dynamic> toJson() => {
         "product_name": name,
         "product_price": price,
-        // "description": description,
-        // "product_image": image,
         "created_at": createdAt,
         "update_at": updateAt,
       };
