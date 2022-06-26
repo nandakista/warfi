@@ -6,6 +6,7 @@ import 'package:desktop_base/app/app_service.dart';
 import 'package:desktop_base/features/main_page.dart';
 import 'package:desktop_base/features/product/add_product/add_product_provider.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
+import 'package:desktop_base/features/transaction/history_in/history_in_provider.dart';
 import 'package:desktop_base/helper/general_function.dart';
 import 'package:desktop_base/helper/scroll_helper.dart';
 import 'package:desktop_base/themes/app_theme.dart';
@@ -31,6 +32,7 @@ class MyApp extends fluent.StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => AddProductProvider()),
         ChangeNotifierProvider(create: (context) => ListProductProvider().init()),
+        ChangeNotifierProvider(create: (context) => HistoryInProvider()),
       ],
         child: fluent.FluentApp(
           title: AppConst.appName,

@@ -25,12 +25,14 @@ class AddProductProvider with ChangeNotifier {
   }
 
   Future<void> addProduct(BuildContext context) async {
+    debugPrint('Price : ${priceController.text}');
+    debugPrint('Price New : ${AppConverter.fromIDR(amount: priceController.text)}');
     if (validateField()) {
       try {
         await locator<ProductDao>().insertProduct(ProductEntityCompanion.insert(
             idName: AppConverter.toSnakeCase(nameController.text),
             name: nameController.text,
-            price: int.tryParse(priceController.text) ?? 0,
+            price: AppConverter.fromIDR(amount: priceController.text),
             box: int.tryParse(boxController.text) ?? 0,
             bal: int.tryParse(balController.text) ?? 0,
             pack: int.tryParse(packController.text) ?? 0,

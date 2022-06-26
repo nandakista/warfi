@@ -31,40 +31,6 @@ class AppDatabase extends _$AppDatabase {
       beforeOpen: (details) async {},
     );
   }
-
-  Stream<List<Recap>> watchRecap() {
-    final query = select(transactionEntity).join([
-      leftOuterJoin(productEntity,
-          productEntity.idName.equalsExp(transactionEntity.idProduct))
-    ]);
-    return query.watch().map((rows) {
-      return rows.map((row) {
-        return Recap(
-          row.readTable(transactionEntity),
-          row.readTable(productEntity),
-        );
-      }).toList();
-    });
-  }
-
-  Future<List<Recap>> getRecap() {
-    final query = select(transactionEntity).join([
-      leftOuterJoin(
-        productEntity,
-        productEntity.idName.equalsExp(
-          transactionEntity.idProduct,
-        ),
-      ),
-    ]);
-    return query.get().then((rows) {
-      return rows.map((row) {
-        return Recap(
-          row.readTable(transactionEntity),
-          row.readTable(productEntity),
-        );
-      }).toList();
-    });
-  }
 }
 
 AppDatabase dbConnection({bool logStatements = false}) {

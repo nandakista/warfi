@@ -28,7 +28,7 @@ class ListProductPage extends StatelessWidget {
           IconButton(
               onPressed: () => provider.init(),
               icon: const Icon(
-                Icons.refresh,
+                fl.FluentIcons.refresh,
                 size: 24,
                 color: AppColors.systemDarkGrey,
               )),

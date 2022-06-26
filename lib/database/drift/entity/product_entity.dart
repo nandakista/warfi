@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart';
 
 class ProductEntity extends Table {
-  // IntColumn get id => integer().autoIncrement()();
   TextColumn get idName => text()();
   TextColumn get name => text()();
   IntColumn get price => integer()();

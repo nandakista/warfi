@@ -2,6 +2,8 @@ import 'package:desktop_base/app/app_service.dart';
 import 'package:desktop_base/database/drift/dao/product/product_dao.dart';
 import 'package:desktop_base/database/drift/dao/transaction/transaction_dao.dart';
 import 'package:desktop_base/database/drift/app_database.dart';
+import 'package:desktop_base/helper/converter_helper.dart';
+import 'package:desktop_base/helper/date_time_helper.dart';
 import 'package:flutter/material.dart';
 
 enum ResultState { LOADING, EMPTY, ERROR, SUCCESS}
@@ -19,8 +21,6 @@ class ListProductProvider with ChangeNotifier {
 
   ListProductProvider init() {
     _getListProduct();
-    _getTransaction();
-    _getRecap();
     return this;
   }
 
@@ -45,32 +45,17 @@ class ListProductProvider with ChangeNotifier {
     }
   }
 
-  _getTransaction() async {
-    try {
-      final dataTrans = await locator<TransactionDao>().getAllTransaction();
-      debugPrint('Transaksi : $dataTrans');
-    } catch (e) {
-      debugPrint('Error : $e');
-    }
-  }
-
-  _getRecap() async {
-    final listRecap = await locator<AppDatabase>().getRecap();
-      print('Recap: ${listRecap[0].product}');
-      print('Recap: ${listRecap[0].transaction}');
-  }
-
   deleteProduct(String id) async {
     _state = ResultState.LOADING;
     notifyListeners();
     try {
       _state = ResultState.SUCCESS;
-      locator<ProductDao>().deleteProduct(id);
+      await locator<ProductDao>().deleteProduct(id);
       _getListProduct();
       notifyListeners();
     } catch (e) {
       _state = ResultState.ERROR;
-      print('Error : $e');
+      debugPrint('Error : $e');
     }
   }
 }

@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
       canBack: false,
       action: [
         ActionIcon(
-          icon: Icons.notifications_none_outlined,
+          icon: fl.FluentIcons.ringer,
           onPressed: () {},
           countUpdate: 1,
         ),
