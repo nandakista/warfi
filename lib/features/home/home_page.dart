@@ -187,7 +187,7 @@ class HomePage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Expanded(child: Text('${item.box} Dus')),
+                          Expanded(child: Text('${item.dus} Dus')),
                           const SizedBox(width: 16),
                           Expanded(child: Text('${item.bal} Bal')),
                           const SizedBox(width: 16),
