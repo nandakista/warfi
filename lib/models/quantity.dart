@@ -12,4 +12,22 @@ class Quantity {
     this.pcs,
     this.lusin,
   });
+
+  factory Quantity.fromJson(Map<dynamic, dynamic> json) {
+    return Quantity(
+      box: json['box'],
+      bal: json['bal'],
+      lusin: json['lusin'],
+      pack: json['pack'],
+      pcs: json['pcs'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'box': box,
+    'bal': bal,
+    'lusin': lusin,
+    'pack': pack,
+    'pcs': pcs,
+  };
 }

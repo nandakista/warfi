@@ -1,17 +1,15 @@
 import 'package:desktop_base/app/app_service.dart';
-import 'package:desktop_base/database/drift/dao/product/product_dao.dart';
-import 'package:desktop_base/database/drift/dao/transaction/transaction_dao.dart';
-import 'package:desktop_base/database/drift/app_database.dart';
-import 'package:desktop_base/helper/converter_helper.dart';
-import 'package:desktop_base/helper/date_time_helper.dart';
+import 'package:desktop_base/database/hive/dao/product_dao.dart';
+import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
+import 'package:desktop_base/models/product.dart';
 import 'package:flutter/material.dart';
 
 enum ResultState { LOADING, EMPTY, ERROR, SUCCESS}
 
 class ListProductProvider with ChangeNotifier {
 
-  List<ProductEntityData> _listProduct = [];
-  List<ProductEntityData> get listProduct => _listProduct;
+  List<ProductEntity> _listProduct = [];
+  List<ProductEntity> get listProduct => _listProduct;
 
   late ResultState _state;
   ResultState get state => _state;
@@ -28,7 +26,7 @@ class ListProductProvider with ChangeNotifier {
     _state = ResultState.LOADING;
     notifyListeners();
     try {
-      final data = await locator<ProductDao>().getAllProduct();
+      final data = locator<ProductDao>().getAll();
       if(data.isNotEmpty) {
         _state = ResultState.SUCCESS;
         notifyListeners();
@@ -45,12 +43,12 @@ class ListProductProvider with ChangeNotifier {
     }
   }
 
-  deleteProduct(String id) async {
+  deleteProduct(ProductEntity entity) async {
     _state = ResultState.LOADING;
     notifyListeners();
     try {
       _state = ResultState.SUCCESS;
-      await locator<ProductDao>().deleteProduct(id);
+      await locator<ProductDao>().delete(entity);
       _getListProduct();
       notifyListeners();
     } catch (e) {

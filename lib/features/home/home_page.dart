@@ -1,10 +1,7 @@
-import 'package:desktop_base/database/drift/app_database.dart';
+import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
 import 'package:desktop_base/features/home/component/header_card_component.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
-import 'package:desktop_base/models/product.dart';
-import 'package:desktop_base/models/quantity.dart';
-import 'package:desktop_base/themes/app_colors.dart';
 import 'package:desktop_base/themes/app_style.dart';
 import 'package:desktop_base/widgets/basic_widget.dart';
 import 'package:desktop_base/widgets/content_wrapper.dart';
@@ -109,7 +106,7 @@ class HomePage extends StatelessWidget {
 
   _buildListProduct({
     required BuildContext context,
-    required List<ProductEntityData> data,
+    required List<ProductEntity> data,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +164,7 @@ class HomePage extends StatelessWidget {
           separatorBuilder: (_, index) => const Divider(),
           itemCount: data.length < 8 ? data.length : 8,
           itemBuilder: (_, index) {
-            ProductEntityData item = data[index];
+            ProductEntity item = data[index];
             return ListTile(
               title: Row(
                 children: [
@@ -180,7 +177,7 @@ class HomePage extends StatelessWidget {
                   Flexible(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: Text(AppConverter.toIDR(amount: item.price)),
+                      child: Text(AppConverter.toIDR(amount: item.price ?? 0)),
                     ),
                   ),
                   Flexible(
