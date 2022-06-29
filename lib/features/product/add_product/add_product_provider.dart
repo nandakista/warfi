@@ -25,23 +25,24 @@ class AddProductProvider with ChangeNotifier {
   }
 
   Future<void> addProduct(BuildContext context) async {
-    debugPrint('Price : ${priceController.text}');
-    debugPrint('Price New : ${AppConverter.fromIDR(amount: priceController.text)}');
     if (validateField()) {
       try {
-        await locator<ProductDao>().insertProduct(ProductEntityCompanion.insert(
-            idName: AppConverter.toSnakeCase(nameController.text),
-            name: nameController.text,
-            price: AppConverter.fromIDR(amount: priceController.text),
-            box: int.tryParse(boxController.text) ?? 0,
-            bal: int.tryParse(balController.text) ?? 0,
-            pack: int.tryParse(packController.text) ?? 0,
-            pcs: int.tryParse(pcsController.text) ?? 0));
-        await locator<TransactionDao>().createTransaction(
-          TransactionEntityCompanion.insert(
-            idProduct: AppConverter.toSnakeCase(nameController.text),
-            createdAt: DateHelper(date: DateTime.now()).format().toString(),
-            deletedAt: '-'));
+        final list = await locator<ProductDao>().getAllProduct();
+        if (list.isNotEmpty) {
+          for (var p in list) {
+            if (p.idName ==
+                AppConverter.toSnakeCase(nameController.text.toLowerCase())) {
+              updateProduct(product: p);
+              insertTransaction();
+            } else {
+              insertProduct();
+              insertTransaction();
+            }
+          }
+        } else {
+          insertProduct();
+          insertTransaction();
+        }
         AppDialog.show(
           context: context,
           typeDialog: TypeDialog.SUCCESS,
@@ -62,6 +63,51 @@ class AddProductProvider with ChangeNotifier {
         );
       }
     }
+  }
+
+  updateProduct({required ProductEntityData product}) async {
+    print('produk id : ${product.idName} == ${AppConverter.toSnakeCase(nameController.text.toLowerCase())}');
+    await locator<ProductDao>().updateProduct(
+      AppConverter.toSnakeCase(nameController.text.toLowerCase()),
+      ProductEntityCompanion.insert(
+        idName: AppConverter.toSnakeCase(nameController.text.toLowerCase()),
+        name: nameController.text,
+        price: AppConverter.fromIDR(amount: priceController.text),
+        box: int.tryParse(boxController.text)! + product.box,
+        bal: int.tryParse(balController.text)! + product.bal,
+        pack: int.tryParse(packController.text)! + product.pack,
+        pcs: int.tryParse(pcsController.text)! + product.pcs,
+      ),
+    );
+  }
+
+  insertProduct() async {
+    await locator<ProductDao>().insertProduct(
+      ProductEntityCompanion.insert(
+        idName: AppConverter.toSnakeCase(nameController.text.toLowerCase()),
+        name: nameController.text,
+        price: AppConverter.fromIDR(amount: priceController.text),
+        box: int.tryParse(boxController.text) ?? 0,
+        bal: int.tryParse(balController.text) ?? 0,
+        pack: int.tryParse(packController.text) ?? 0,
+        pcs: int.tryParse(pcsController.text) ?? 0,
+      ),
+    );
+  }
+
+  insertTransaction() async {
+    await locator<TransactionDao>()
+        .createTransaction(TransactionEntityCompanion.insert(
+      idName: AppConverter.toSnakeCase(nameController.text.toLowerCase()),
+      createdAt: DateHelper(date: DateTime.now()).format().toString(),
+      deletedAt: '-',
+      name: nameController.text,
+      price: AppConverter.fromIDR(amount: priceController.text),
+      box: int.tryParse(boxController.text) ?? 0,
+      bal: int.tryParse(balController.text) ?? 0,
+      pack: int.tryParse(packController.text) ?? 0,
+      pcs: int.tryParse(pcsController.text) ?? 0,
+    ));
   }
 
   void onClose() {

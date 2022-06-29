@@ -10,9 +10,9 @@ class ProductDao extends DatabaseAccessor<AppDatabase> with _$ProductDaoMixin {
 
   Future<List<ProductEntityData>> getAllProduct() async => await select(productEntity).get();
   Future<ProductEntityData> getProduct(String id) async => await (select(productEntity)..where((tbl) => tbl.idName.equals(id))).getSingle();
-  Stream<List<ProductEntityData>> watchAllProduct() => select(productEntity).watch();
   Future insertProduct(ProductEntityCompanion product) async => await into(productEntity).insert(product);
-  Future updateProduct(ProductEntityCompanion product) async => await update(productEntity).replace(product);
+  // Future updateProduct(String id, ProductEntityCompanion product) async => await (update(productEntity)..where((tbl) => tbl.idName.like(id))).replace(product);
+
+  Future updateProduct(String id, ProductEntityCompanion product) async => await update(productEntity).replace(product);
   Future deleteProduct(String id) async => await (delete(productEntity)..where((tbl) => tbl.idName.equals(id))).go();
-  Future deleteAll(ProductEntityCompanion product) async => await (delete(productEntity).delete(product));
 }

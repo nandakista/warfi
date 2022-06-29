@@ -1,4 +1,5 @@
 import 'package:desktop_base/app/app_constant.dart';
+import 'package:desktop_base/database/drift/app_database.dart';
 import 'package:desktop_base/database/drift/dao/transaction/transaction_dao.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/features/transaction/history_in/history_in_provider.dart';
@@ -68,7 +69,7 @@ class HistoryInTab extends StatelessWidget {
 
   Widget _buildListProduct({
     required BuildContext context,
-    required List<Recap> data,
+    required List<TransactionEntityData> data,
   }) {
     return ListView.separated(
       separatorBuilder: (context, index) {
@@ -76,7 +77,7 @@ class HistoryInTab extends StatelessWidget {
       },
       itemCount: data.length,
       itemBuilder: (_, index) {
-        Recap item = data[index];
+        TransactionEntityData item = data[index];
         return ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,12 +103,12 @@ class HistoryInTab extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${item.product?.name}',
+                              item.name,
                               style: AppStyle.subtitle4,
                             ),
                             Text(
                               AppConverter.toIDR(
-                                  amount: item.product?.price ?? 0),
+                                  amount: item.price),
                               style: AppStyle.normal,
                             ),
                           ],
@@ -124,19 +125,19 @@ class HistoryInTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Expanded(
-                        child: Text('${item.product?.box} Dus',
+                        child: Text('${item.box} Dus',
                             style: AppStyle.small)),
                     const SizedBox(width: 16),
                     Expanded(
-                        child: Text('${item.product?.bal} Bal',
+                        child: Text('${item.bal} Bal',
                             style: AppStyle.small)),
                     const SizedBox(width: 16),
                     Expanded(
-                        child: Text('${item.product?.pack} Pack',
+                        child: Text('${item.pack} Pack',
                             style: AppStyle.small)),
                     const SizedBox(width: 16),
                     Expanded(
-                        child: Text('${item.product?.pcs} Pcs',
+                        child: Text('${item.pcs} Pcs',
                             style: AppStyle.small)),
                   ],
                 ),

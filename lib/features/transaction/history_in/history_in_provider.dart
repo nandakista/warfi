@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 class HistoryInProvider with ChangeNotifier {
 
-  List<Recap> _listRecap = [];
-  List<Recap> get listRecap => _listRecap;
+  List<TransactionEntityData> _listRecap = [];
+  List<TransactionEntityData> get listRecap => _listRecap;
 
   late ResultState _state;
   ResultState get state => _state;
@@ -34,7 +34,7 @@ class HistoryInProvider with ChangeNotifier {
     _state = ResultState.LOADING;
     notifyListeners();
     try {
-      final data = await locator<TransactionDao>().getRecap();
+      final data = await locator<TransactionDao>().getAllTransaction();
       if(data.isNotEmpty) {
         _state = ResultState.SUCCESS;
         notifyListeners();

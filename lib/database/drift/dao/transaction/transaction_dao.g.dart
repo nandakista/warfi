@@ -9,5 +9,4 @@ part of 'transaction_dao.dart';
 mixin _$TransactionDaoMixin on DatabaseAccessor<AppDatabase> {
   $TransactionEntityTable get transactionEntity =>
       attachedDatabase.transactionEntity;
-  $ProductEntityTable get productEntity => attachedDatabase.productEntity;
 }

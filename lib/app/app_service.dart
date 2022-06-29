@@ -1,4 +1,3 @@
-import 'package:desktop_base/api/api_config.dart';
 import 'package:desktop_base/app/app_config.dart';
 import 'package:desktop_base/database/drift/dao/product/product_dao.dart';
 import 'package:desktop_base/database/drift/dao/transaction/transaction_dao.dart';
@@ -13,7 +12,6 @@ class AppServices {
     locator.registerLazySingleton(() => sharedPreferences);
     locator.registerLazySingleton(() => dbConnection());
     locator.registerLazySingleton(() => AppConfig());
-    locator.registerLazySingleton(() => DioClient());
 
     // Dao
     final database = locator<AppDatabase>();
