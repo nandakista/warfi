@@ -6,13 +6,13 @@ part 'product_entity.g.dart';
 class ProductEntity extends HiveObject {
   // id format == name product with lower snake_case
   @HiveField(0)
-  String id;
+  final String id;
 
   @HiveField(1)
-  String? name;
+  final String? name;
 
   @HiveField(2)
-  int? price;
+  final int? price;
 
   @HiveField(3)
   final int? dus;

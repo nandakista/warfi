@@ -1,4 +1,5 @@
 import 'package:desktop_base/app/app_service.dart';
+import 'package:desktop_base/database/data/account_data.dart';
 import 'package:desktop_base/database/hive/dao/product_dao.dart';
 import 'package:desktop_base/database/hive/dao/transaction_dao.dart';
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
@@ -16,6 +17,7 @@ class AddProductProvider with ChangeNotifier {
   final pcsController = TextEditingController();
   final balController = TextEditingController();
   final packController = TextEditingController();
+  final noteController = TextEditingController();
 
   initPage(ProductStatus arg, ProductEntity? product){
     if(arg == ProductStatus.UPDATE) {
@@ -37,31 +39,8 @@ class AddProductProvider with ChangeNotifier {
   Future<void> addProduct(BuildContext context) async {
     if (validateField()) {
       try {
-        locator<ProductDao>().addOrUpdate(
-          ProductEntity(
-            id: nameController.text.toLowerCase().toSnakeCase(),
-            name: nameController.text.capitalize(),
-            price: priceController.text.fromIDRtoInt(),
-            dus: int.tryParse(boxController.text) ?? 0,
-            bal: int.tryParse(balController.text) ?? 0,
-            pack: int.tryParse(packController.text) ?? 0,
-            pcs: int.tryParse(pcsController.text) ?? 0,
-            createdAt: DateTime.now(),
-            updateAt: DateTime.now(),
-          ),
-        );
-        locator<TransactionDao>().add(
-          TransactionEntity(
-            name: nameController.text.capitalize(),
-            price: priceController.text.fromIDRtoInt(),
-            dus: int.tryParse(boxController.text) ?? 0,
-            bal: int.tryParse(balController.text) ?? 0,
-            pack: int.tryParse(packController.text) ?? 0,
-            pcs: int.tryParse(pcsController.text) ?? 0,
-            createdAt: DateTime.now(),
-            updateAt: DateTime.now(),
-          ),
-        );
+        addOrUpdateProduct();
+        createTransaction();
         AppDialog.show(
           context: context,
           typeDialog: TypeDialog.SUCCESS,
@@ -81,6 +60,45 @@ class AddProductProvider with ChangeNotifier {
           onPress: () => AppDialog.close(context),
         );
       }
+    }
+  }
+
+  addOrUpdateProduct(){
+    locator<ProductDao>().addOrUpdate(
+      ProductEntity(
+        id: nameController.text.toLowerCase().toSnakeCase(),
+        name: nameController.text.capitalize(),
+        price: priceController.text.fromIDRtoInt(),
+        dus: int.tryParse(boxController.text) ?? 0,
+        bal: int.tryParse(balController.text) ?? 0,
+        pack: int.tryParse(packController.text) ?? 0,
+        pcs: int.tryParse(pcsController.text) ?? 0,
+        createdAt: DateTime.now(),
+        updateAt: DateTime.now(),
+      ),
+    );
+  }
+
+  createTransaction(){
+    var dus = int.tryParse(boxController.text) ?? 0;
+    var bal = int.tryParse(balController.text) ?? 0;
+    var pack = int.tryParse(packController.text) ?? 0;
+    var pcs = int.tryParse(pcsController.text) ?? 0;
+    if(dus!=0 && bal !=0 && pack!=0 && pcs != 0) {
+      locator<TransactionDao>().add(
+        TransactionEntity(
+            name: nameController.text.capitalize(),
+            price: priceController.text.fromIDRtoInt(),
+            dus: dus,
+            bal: bal,
+            pack: pack,
+            pcs: pcs,
+            createdAt: DateTime.now(),
+            updateAt: DateTime.now(),
+            note: noteController.text,
+            account: admin
+        ),
+      );
     }
   }
 

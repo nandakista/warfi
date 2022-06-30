@@ -1,3 +1,4 @@
+import 'package:desktop_base/database/hive/entity/account/account_entity.dart';
 import 'package:hive/hive.dart';
 
 part 'transaction_entity.g.dart';
@@ -29,6 +30,13 @@ class TransactionEntity extends HiveObject {
   @HiveField(7)
   final DateTime? updateAt;
 
+
+  @HiveField(8)
+  final String? note;
+
+  @HiveField(9)
+  final AccountEntity? account;
+
   TransactionEntity({
     this.name,
     this.price,
@@ -38,5 +46,7 @@ class TransactionEntity extends HiveObject {
     this.bal,
     this.pack,
     this.pcs,
+    this.note,
+    this.account,
   });
 }

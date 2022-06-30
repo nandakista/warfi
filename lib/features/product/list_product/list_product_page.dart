@@ -41,29 +41,31 @@ class ListProductPage extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        child: Consumer<ListProductProvider>(
-          builder: (ctx, provider, _) {
-            final data = provider.listProduct;
-            switch (provider.state) {
-              case ResultState.LOADING:
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              case ResultState.EMPTY:
-                return _buildEmptyData(
-                  message: provider.message,
-                  imageUri: 'assets/images/img_empty_product.svg',
-                );
-              case ResultState.ERROR:
-                return _buildEmptyData(
-                  message: 'Terjadi kesalahan ${provider.message}',
-                  imageUri: 'assets/images/img_empty_product.svg',
-                );
-              case ResultState.SUCCESS:
-                return _buildListProduct(
-                    context: context, data: data, provider: provider);
-            }
-          },
+        child: SingleChildScrollView(
+          child: Consumer<ListProductProvider>(
+            builder: (ctx, provider, _) {
+              final data = provider.listProduct;
+              switch (provider.state) {
+                case ResultState.LOADING:
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                case ResultState.EMPTY:
+                  return _buildEmptyData(
+                    message: provider.message,
+                    imageUri: 'assets/images/img_empty_product.svg',
+                  );
+                case ResultState.ERROR:
+                  return _buildEmptyData(
+                    message: 'Terjadi kesalahan ${provider.message}',
+                    imageUri: 'assets/images/img_empty_product.svg',
+                  );
+                case ResultState.SUCCESS:
+                  return _buildListProduct(
+                      context: context, data: data, provider: provider);
+              }
+            },
+          ),
         ),
       ),
     );
@@ -77,11 +79,12 @@ class ListProductPage extends StatelessWidget {
         SvgPicture.asset(imageUri, width: 300),
         const SizedBox(height: 30),
         Center(
-            child: Text(
-          message,
-          textAlign: TextAlign.center,
-          style: AppStyle.subtitle1,
-        )),
+          child: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: AppStyle.subtitle1,
+          ),
+        ),
       ],
     );
   }
@@ -92,6 +95,8 @@ class ListProductPage extends StatelessWidget {
     required List<ProductEntity> data,
   }) {
     return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       separatorBuilder: (context, index) => const Divider(),
       itemCount: data.length,
       itemBuilder: (_, index) {

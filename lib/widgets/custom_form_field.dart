@@ -7,7 +7,7 @@ class CustomFieldForm extends StatelessWidget {
   final String? label, hint, endText, startText;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
-  final IconData icon;
+  final IconData? icon;
   final IconData? endIcon;
   final int? maxLength, maxLines;
   final VoidCallback? onPress;
@@ -31,7 +31,7 @@ class CustomFieldForm extends StatelessWidget {
     required this.validator,
     this.controller,
     this.keyboardType,
-    required this.icon,
+    this.icon,
     this.backgroundColor,
     this.textColor = AppColors.primary,
     this.hintColor = Colors.grey,

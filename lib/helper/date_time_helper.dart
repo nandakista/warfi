@@ -37,7 +37,7 @@ class DateHelper {
   }
 
   String? format5() {
-    return formatDate(pattern: 'EEEE, dd MMMM yyyy HH:mm:ss');
+    return formatDate(pattern: 'EEEE,\ndd MMMM yyyy\nHH:mm');
   }
 
   String? format6() {
@@ -49,11 +49,11 @@ class DateHelper {
     bool isNotRange = (startDate == null && endDate == null);
 
     if(isRange && date == null) {
-      var start = DateFormat(pattern).format(startDate!);
-      var end = DateFormat(pattern).format(endDate!);
+      var start = DateFormat(pattern, 'id').format(startDate!);
+      var end = DateFormat(pattern, 'id').format(endDate!);
       return '$start - $end';
     } else if (date != null && isNotRange) {
-      return DateFormat(pattern).format(date!);
+      return DateFormat(pattern, 'id').format(date!);
     } else {
       return 'Error date converted!';
     }
