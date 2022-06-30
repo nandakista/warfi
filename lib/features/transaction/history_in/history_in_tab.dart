@@ -103,8 +103,7 @@ class HistoryInTab extends StatelessWidget {
                               style: AppStyle.subtitle4,
                             ),
                             Text(
-                              AppConverter.toIDR(
-                                  amount: item.price ?? 0),
+                              (item.price?.toInt() ?? 0).toIDR(),
                               style: AppStyle.normal,
                             ),
                           ],

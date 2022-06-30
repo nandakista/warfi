@@ -177,7 +177,7 @@ class HomePage extends StatelessWidget {
                   Flexible(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: Text(AppConverter.toIDR(amount: item.price ?? 0)),
+                      child: Text((item.price?.toInt() ?? 0).toIDR(),),
                     ),
                   ),
                   Flexible(

@@ -39,9 +39,9 @@ class AddProductProvider with ChangeNotifier {
       try {
         locator<ProductDao>().addOrUpdate(
           ProductEntity(
-            id: AppConverter.toSnakeCase(nameController.text.toLowerCase()),
-            name: nameController.text,
-            price: AppConverter.fromIDR(amount: priceController.text),
+            id: nameController.text.toLowerCase().toSnakeCase(),
+            name: nameController.text.capitalize(),
+            price: priceController.text.fromIDRtoInt(),
             dus: int.tryParse(boxController.text) ?? 0,
             bal: int.tryParse(balController.text) ?? 0,
             pack: int.tryParse(packController.text) ?? 0,
@@ -52,8 +52,8 @@ class AddProductProvider with ChangeNotifier {
         );
         locator<TransactionDao>().add(
           TransactionEntity(
-            name: nameController.text,
-            price: AppConverter.fromIDR(amount: priceController.text),
+            name: nameController.text.capitalize(),
+            price: priceController.text.fromIDRtoInt(),
             dus: int.tryParse(boxController.text) ?? 0,
             bal: int.tryParse(balController.text) ?? 0,
             pack: int.tryParse(packController.text) ?? 0,

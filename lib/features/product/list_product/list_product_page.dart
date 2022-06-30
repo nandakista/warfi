@@ -1,5 +1,4 @@
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
-import 'package:desktop_base/features/product/add_product/add_product_page.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
 import 'package:desktop_base/themes/app_colors.dart';
@@ -126,7 +125,7 @@ class ListProductPage extends StatelessWidget {
                               style: AppStyle.subtitle4,
                             ),
                             Text(
-                              AppConverter.toIDR(amount: item.price ?? 0),
+                              (item.price?.toInt() ?? 0).toIDR(),
                               style: AppStyle.normal,
                             ),
                           ],

@@ -1,5 +1,6 @@
 import 'package:desktop_base/app/app_service.dart';
 import 'package:desktop_base/database/hive/dao/product_dao.dart';
+import 'package:desktop_base/helper/converter_helper.dart';
 import 'package:desktop_base/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -20,31 +21,10 @@ class _TestPageState extends State<TestPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomButton(
-              text: 'Add Hive',
+              text: 'Convert',
               onPress: () {
-                final a = locator<ProductDao>();
-                // a.add(entity);
-              },
-            ),
-            CustomButton(
-              text: 'Get Hive',
-              onPress: () {
-                final a = locator<ProductDao>();
-                a.getAll();
-              },
-            ),
-            CustomButton(
-              text: 'Add or Update',
-              onPress: () {
-                final a = locator<ProductDao>();
-                // a.addOrUpdate();
-              },
-            ),
-            CustomButton(
-              text: 'Delete',
-              onPress: () {
-                final a = locator<ProductDao>();
-                a.deleteAll();
+                String a = "Rp 1.500";
+                int b = 1500;
               },
             ),
 
