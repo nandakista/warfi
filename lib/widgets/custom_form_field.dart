@@ -59,6 +59,7 @@ class CustomFieldForm extends StatelessWidget {
       child: TextFormField(
         onTap: onPress,
         readOnly: readOnly,
+        enabled: !readOnly,
         onEditingComplete: () => FocusScope.of(context).nextFocus(),
         controller: controller,
         keyboardType: keyboardType,

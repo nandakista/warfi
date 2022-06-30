@@ -1,12 +1,9 @@
 import 'package:desktop_base/app/app_constant.dart';
-import 'package:desktop_base/database/drift/dao/transaction/transaction_dao.dart';
+import 'package:desktop_base/database/hive/entity/transaction/transaction_entity.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/features/transaction/history_in/history_in_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
-import 'package:desktop_base/themes/app_colors.dart';
 import 'package:desktop_base/themes/app_style.dart';
-import 'package:desktop_base/widgets/content_wrapper.dart';
-import 'package:fluent_ui/fluent_ui.dart' as fl;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -68,7 +65,7 @@ class HistoryInTab extends StatelessWidget {
 
   Widget _buildListProduct({
     required BuildContext context,
-    required List<Recap> data,
+    required List<TransactionEntity> data,
   }) {
     return ListView.separated(
       separatorBuilder: (context, index) {
@@ -76,7 +73,7 @@ class HistoryInTab extends StatelessWidget {
       },
       itemCount: data.length,
       itemBuilder: (_, index) {
-        Recap item = data[index];
+        TransactionEntity item = data[index];
         return ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,12 +99,12 @@ class HistoryInTab extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${item.product?.name}',
+                              item.name.toString(),
                               style: AppStyle.subtitle4,
                             ),
                             Text(
                               AppConverter.toIDR(
-                                  amount: item.product?.price ?? 0),
+                                  amount: item.price ?? 0),
                               style: AppStyle.normal,
                             ),
                           ],
@@ -124,19 +121,19 @@ class HistoryInTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Expanded(
-                        child: Text('${item.product?.box} Dus',
+                        child: Text('${item.dus} Dus',
                             style: AppStyle.small)),
                     const SizedBox(width: 16),
                     Expanded(
-                        child: Text('${item.product?.bal} Bal',
+                        child: Text('${item.bal} Bal',
                             style: AppStyle.small)),
                     const SizedBox(width: 16),
                     Expanded(
-                        child: Text('${item.product?.pack} Pack',
+                        child: Text('${item.pack} Pack',
                             style: AppStyle.small)),
                     const SizedBox(width: 16),
                     Expanded(
-                        child: Text('${item.product?.pcs} Pcs',
+                        child: Text('${item.pcs} Pcs',
                             style: AppStyle.small)),
                   ],
                 ),

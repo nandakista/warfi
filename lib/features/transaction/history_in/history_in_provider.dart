@@ -1,13 +1,13 @@
 import 'package:desktop_base/app/app_service.dart';
-import 'package:desktop_base/database/drift/app_database.dart';
-import 'package:desktop_base/database/drift/dao/transaction/transaction_dao.dart';
+import 'package:desktop_base/database/hive/dao/transaction_dao.dart';
+import 'package:desktop_base/database/hive/entity/transaction/transaction_entity.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:flutter/material.dart';
 
 class HistoryInProvider with ChangeNotifier {
 
-  List<Recap> _listRecap = [];
-  List<Recap> get listRecap => _listRecap;
+  List<TransactionEntity> _listRecap = [];
+  List<TransactionEntity> get listRecap => _listRecap;
 
   late ResultState _state;
   ResultState get state => _state;
@@ -16,25 +16,15 @@ class HistoryInProvider with ChangeNotifier {
   String get message => _message;
 
   HistoryInProvider init() {
-    _getTransaction();
     _getRecap();
     return this;
-  }
-
-  _getTransaction() async {
-    try {
-      final dataTrans = await locator<TransactionDao>().getAllTransaction();
-      debugPrint('Transaksi : $dataTrans');
-    } catch (e) {
-      debugPrint('Error : $e');
-    }
   }
 
   Future<dynamic> _getRecap() async {
     _state = ResultState.LOADING;
     notifyListeners();
     try {
-      final data = await locator<TransactionDao>().getRecap();
+      final data = locator<TransactionDao>().getAll();
       if(data.isNotEmpty) {
         _state = ResultState.SUCCESS;
         notifyListeners();

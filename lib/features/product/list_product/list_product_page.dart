@@ -1,9 +1,7 @@
-import 'package:desktop_base/database/drift/app_database.dart';
+import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
 import 'package:desktop_base/features/product/add_product/add_product_page.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
-import 'package:desktop_base/models/product.dart';
-import 'package:desktop_base/models/quantity.dart';
 import 'package:desktop_base/themes/app_colors.dart';
 import 'package:desktop_base/themes/app_style.dart';
 import 'package:desktop_base/widgets/content_wrapper.dart';
@@ -37,8 +35,7 @@ class ListProductPage extends StatelessWidget {
           ),
         ],
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, AddProductPage.route)
-              .then((value) => provider.init()),
+          onPressed: () => provider.toAddProduct(context),
           backgroundColor: AppColors.primary,
           child: const Icon(
             Icons.add,
@@ -93,15 +90,13 @@ class ListProductPage extends StatelessWidget {
   Widget _buildListProduct({
     required BuildContext context,
     required ListProductProvider provider,
-    required List<ProductEntityData> data,
+    required List<ProductEntity> data,
   }) {
     return ListView.separated(
-      separatorBuilder: (context, index) {
-        return const Divider();
-      },
+      separatorBuilder: (context, index) => const Divider(),
       itemCount: data.length,
       itemBuilder: (_, index) {
-        ProductEntityData item = data[index];
+        ProductEntity item = data[index];
         return ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,7 +126,7 @@ class ListProductPage extends StatelessWidget {
                               style: AppStyle.subtitle4,
                             ),
                             Text(
-                              AppConverter.toIDR(amount: item.price),
+                              AppConverter.toIDR(amount: item.price ?? 0),
                               style: AppStyle.normal,
                             ),
                           ],
@@ -148,7 +143,7 @@ class ListProductPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Expanded(
-                        child: Text('${item.box} Dus', style: AppStyle.small)),
+                        child: Text('${item.dus} Dus', style: AppStyle.small)),
                     const SizedBox(width: 16),
                     Expanded(
                         child: Text('${item.bal} Bal', style: AppStyle.small)),
@@ -160,16 +155,18 @@ class ListProductPage extends StatelessWidget {
                     Expanded(
                         child: Text('${item.pcs} Pcs', style: AppStyle.small)),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        provider.toEditProduct(context, item);
+                      },
                       child: const Icon(
-                        fl.FluentIcons.edit_solid12,
+                        fl.FluentIcons.edit,
                         color: AppColors.primary,
                       ),
                     ),
                     const SizedBox(width: 16),
                     InkWell(
                       onTap: () {
-                        provider.deleteProduct(item.idName);
+                        provider.deleteProduct(item);
                       },
                       child: const Icon(
                         fl.FluentIcons.delete,

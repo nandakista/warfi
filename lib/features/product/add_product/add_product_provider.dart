@@ -1,9 +1,10 @@
 import 'package:desktop_base/app/app_service.dart';
-import 'package:desktop_base/database/drift/dao/product/product_dao.dart';
-import 'package:desktop_base/database/drift/dao/transaction/transaction_dao.dart';
-import 'package:desktop_base/database/drift/app_database.dart';
+import 'package:desktop_base/database/hive/dao/product_dao.dart';
+import 'package:desktop_base/database/hive/dao/transaction_dao.dart';
+import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
+import 'package:desktop_base/database/hive/entity/transaction/transaction_entity.dart';
+import 'package:desktop_base/features/product/add_product/add_product_page.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
-import 'package:desktop_base/helper/date_time_helper.dart';
 import 'package:desktop_base/helper/dialog_helper.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,13 @@ class AddProductProvider with ChangeNotifier {
   final balController = TextEditingController();
   final packController = TextEditingController();
 
+  initPage(ProductStatus arg, ProductEntity product){
+    if(arg == ProductStatus.UPDATE) {
+      nameController.text = product.name.toString();
+      priceController.text = product.price.toString();
+    }
+  }
+
   bool validateField() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
@@ -25,23 +33,33 @@ class AddProductProvider with ChangeNotifier {
   }
 
   Future<void> addProduct(BuildContext context) async {
-    debugPrint('Price : ${priceController.text}');
-    debugPrint('Price New : ${AppConverter.fromIDR(amount: priceController.text)}');
     if (validateField()) {
       try {
-        await locator<ProductDao>().insertProduct(ProductEntityCompanion.insert(
-            idName: AppConverter.toSnakeCase(nameController.text),
+        locator<ProductDao>().addOrUpdate(
+          ProductEntity(
+            id: AppConverter.toSnakeCase(nameController.text.toLowerCase()),
             name: nameController.text,
             price: AppConverter.fromIDR(amount: priceController.text),
-            box: int.tryParse(boxController.text) ?? 0,
+            dus: int.tryParse(boxController.text) ?? 0,
             bal: int.tryParse(balController.text) ?? 0,
             pack: int.tryParse(packController.text) ?? 0,
-            pcs: int.tryParse(pcsController.text) ?? 0));
-        await locator<TransactionDao>().createTransaction(
-          TransactionEntityCompanion.insert(
-            idProduct: AppConverter.toSnakeCase(nameController.text),
-            createdAt: DateHelper(date: DateTime.now()).format().toString(),
-            deletedAt: '-'));
+            pcs: int.tryParse(pcsController.text) ?? 0,
+            createdAt: DateTime.now(),
+            updateAt: DateTime.now(),
+          ),
+        );
+        locator<TransactionDao>().add(
+          TransactionEntity(
+            name: nameController.text,
+            price: AppConverter.fromIDR(amount: priceController.text),
+            dus: int.tryParse(boxController.text) ?? 0,
+            bal: int.tryParse(balController.text) ?? 0,
+            pack: int.tryParse(packController.text) ?? 0,
+            pcs: int.tryParse(pcsController.text) ?? 0,
+            createdAt: DateTime.now(),
+            updateAt: DateTime.now(),
+          ),
+        );
         AppDialog.show(
           context: context,
           typeDialog: TypeDialog.SUCCESS,
