@@ -41,7 +41,7 @@ class AddProductPage extends StatelessWidget {
               'Nama Barang',
               'Nama',
               provider.nameController,
-              readOnly: true,
+              readOnly: (productStatus == ProductStatus.ADD) ? false : true,
               icon: FluentIcons.product_catalog,
             ),
             const SizedBox(height: 24),

@@ -17,10 +17,12 @@ class AddProductProvider with ChangeNotifier {
   final balController = TextEditingController();
   final packController = TextEditingController();
 
-  initPage(ProductStatus arg, ProductEntity product){
+  initPage(ProductStatus arg, ProductEntity? product){
     if(arg == ProductStatus.UPDATE) {
+      if(product != null) {
       nameController.text = product.name.toString();
       priceController.text = product.price.toString();
+      }
     }
   }
 

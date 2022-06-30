@@ -59,7 +59,7 @@ class ListProductProvider with ChangeNotifier {
 
   toAddProduct(BuildContext context) {
     return Navigator.pushNamed(context, AddProductPage.route,
-            arguments: ProductStatus.ADD)
+            arguments: {'product_status': ProductStatus.ADD})
         .then((value) => init());
   }
 
