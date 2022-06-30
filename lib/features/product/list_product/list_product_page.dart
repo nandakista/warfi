@@ -35,8 +35,7 @@ class ListProductPage extends StatelessWidget {
           ),
         ],
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, AddProductPage.route)
-              .then((value) => provider.init()),
+          onPressed: () => provider.toAddProduct(context),
           backgroundColor: AppColors.primary,
           child: const Icon(
             Icons.add,
@@ -94,9 +93,7 @@ class ListProductPage extends StatelessWidget {
     required List<ProductEntity> data,
   }) {
     return ListView.separated(
-      separatorBuilder: (context, index) {
-        return const Divider();
-      },
+      separatorBuilder: (context, index) => const Divider(),
       itemCount: data.length,
       itemBuilder: (_, index) {
         ProductEntity item = data[index];
@@ -158,9 +155,11 @@ class ListProductPage extends StatelessWidget {
                     Expanded(
                         child: Text('${item.pcs} Pcs', style: AppStyle.small)),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        provider.toEditProduct(context, item);
+                      },
                       child: const Icon(
-                        fl.FluentIcons.edit_solid12,
+                        fl.FluentIcons.edit,
                         color: AppColors.primary,
                       ),
                     ),

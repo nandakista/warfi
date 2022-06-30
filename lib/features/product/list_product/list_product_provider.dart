@@ -1,13 +1,13 @@
 import 'package:desktop_base/app/app_service.dart';
 import 'package:desktop_base/database/hive/dao/product_dao.dart';
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
+import 'package:desktop_base/features/product/add_product/add_product_page.dart';
 import 'package:desktop_base/models/product.dart';
 import 'package:flutter/material.dart';
 
-enum ResultState { LOADING, EMPTY, ERROR, SUCCESS}
+enum ResultState { LOADING, EMPTY, ERROR, SUCCESS }
 
 class ListProductProvider with ChangeNotifier {
-
   List<ProductEntity> _listProduct = [];
   List<ProductEntity> get listProduct => _listProduct;
 
@@ -27,7 +27,7 @@ class ListProductProvider with ChangeNotifier {
     notifyListeners();
     try {
       final data = locator<ProductDao>().getAll();
-      if(data.isNotEmpty) {
+      if (data.isNotEmpty) {
         _state = ResultState.SUCCESS;
         notifyListeners();
         return _listProduct = data;
@@ -55,5 +55,18 @@ class ListProductProvider with ChangeNotifier {
       _state = ResultState.ERROR;
       debugPrint('Error : $e');
     }
+  }
+
+  toAddProduct(BuildContext context) {
+    return Navigator.pushNamed(context, AddProductPage.route,
+            arguments: ProductStatus.ADD)
+        .then((value) => init());
+  }
+
+  toEditProduct(BuildContext context, ProductEntity product) {
+    return Navigator.pushNamed(context, AddProductPage.route, arguments: {
+      'product_status': ProductStatus.UPDATE,
+      'product': product,
+    });
   }
 }

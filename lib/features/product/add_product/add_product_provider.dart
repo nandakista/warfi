@@ -3,6 +3,7 @@ import 'package:desktop_base/database/hive/dao/product_dao.dart';
 import 'package:desktop_base/database/hive/dao/transaction_dao.dart';
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
 import 'package:desktop_base/database/hive/entity/transaction/transaction_entity.dart';
+import 'package:desktop_base/features/product/add_product/add_product_page.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
 import 'package:desktop_base/helper/dialog_helper.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,13 @@ class AddProductProvider with ChangeNotifier {
   final pcsController = TextEditingController();
   final balController = TextEditingController();
   final packController = TextEditingController();
+
+  initPage(ProductStatus arg, ProductEntity product){
+    if(arg == ProductStatus.UPDATE) {
+      nameController.text = product.name.toString();
+      priceController.text = product.price.toString();
+    }
+  }
 
   bool validateField() {
     if (formKey.currentState!.validate()) {
