@@ -18,10 +18,10 @@ class AppConfig {
     switch (flavors) {
       case Flavors.PRODUCTION:
         AppConfig.to.setFlavor = Config(
-          midtransClientKey: 'Mid-client-KSbEOFAHMtQxlEh9',
-          midtransSnap: 'https://app.midtrans.com/snap/snap.js',
-          baseUrl: 'https://test.infinids.id/api/',
-          socketUrl: 'https://ws.fajarhamdani.com',
+          midtransClientKey: 'Mid-client-KS',
+          midtransSnap: 'https://app.midt',
+          baseUrl: 'https://test.infini',
+          socketUrl: 'https://ws.faja',
         );
         break;
       case Flavors.STAGING:
@@ -29,10 +29,10 @@ class AppConfig {
         break;
       case Flavors.DEVELOPMENT:
         AppConfig.to.setFlavor = Config(
-          midtransClientKey: 'SB-Mid-client-jc4soSObl8oZT-m2',
-          midtransSnap: 'https://app.sandbox.midtrans.com/snap/snap.js',
-          baseUrl: 'https://test.infinids.id/api/',
-          socketUrl: 'https://ws.fajarhamdani.com',
+          midtransClientKey: 'SB-Mid-clie',
+          midtransSnap: 'https://app.sandbox.mi',
+          baseUrl: 'https://test.infi',
+          socketUrl: 'https://ws.faja',
         );
         break;
     }

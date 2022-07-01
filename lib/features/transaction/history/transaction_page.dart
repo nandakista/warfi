@@ -1,12 +1,12 @@
-import 'package:desktop_base/features/transaction/history_out/history_out_tab.dart';
+import 'package:desktop_base/features/transaction/history/history_in/history_in_tab.dart';
+import 'package:desktop_base/features/transaction/history/history_out/history_out_tab.dart';
 import 'package:desktop_base/themes/app_colors.dart';
 import 'package:desktop_base/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 
-import '../history_in/history_in_tab.dart';
 
 class TransactionPage extends StatelessWidget {
-  static const String route = '/transaction';
+  static const String route = '/transactions';
   const TransactionPage({Key? key}) : super(key: key);
 
   @override

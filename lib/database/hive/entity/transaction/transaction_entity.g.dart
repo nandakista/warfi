@@ -25,13 +25,16 @@ class TransactionEntityAdapter extends TypeAdapter<TransactionEntity> {
       bal: fields[3] as int?,
       pack: fields[4] as int?,
       pcs: fields[5] as int?,
+      note: fields[8] as String?,
+      account: fields[9] as String?,
+      debt: fields[10] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, TransactionEntity obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -47,7 +50,13 @@ class TransactionEntityAdapter extends TypeAdapter<TransactionEntity> {
       ..writeByte(6)
       ..write(obj.createdAt)
       ..writeByte(7)
-      ..write(obj.updateAt);
+      ..write(obj.updateAt)
+      ..writeByte(8)
+      ..write(obj.note)
+      ..writeByte(9)
+      ..write(obj.account)
+      ..writeByte(10)
+      ..write(obj.debt);
   }
 
   @override

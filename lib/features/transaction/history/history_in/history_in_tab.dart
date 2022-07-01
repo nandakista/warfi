@@ -1,7 +1,8 @@
 import 'package:desktop_base/app/app_constant.dart';
+import 'package:desktop_base/database/hive/entity/account/account_entity.dart';
 import 'package:desktop_base/database/hive/entity/transaction/transaction_entity.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
-import 'package:desktop_base/features/transaction/history_in/history_in_provider.dart';
+import 'package:desktop_base/features/transaction/history/history_in/history_in_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
 import 'package:desktop_base/helper/date_time_helper.dart';
 import 'package:desktop_base/themes/app_style.dart';
@@ -156,6 +157,8 @@ class HistoryInTab extends StatelessWidget {
       itemCount: data.length,
       itemBuilder: (_, index) {
         TransactionEntity item = data[index];
+        print("Account : ${item.account}");
+        // AccountEntity account = accountFromJson(item.account.toString());
         return ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -234,7 +237,7 @@ class HistoryInTab extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        item.account?.name ?? 'Error',
+                        'account.name' ?? 'Error',
                         textAlign: TextAlign.right,
                         style: AppStyle.small,
                       ),

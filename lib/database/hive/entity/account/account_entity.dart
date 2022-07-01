@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:hive/hive.dart';
+
+String accountToJson(AccountEntity data) => json.encode(data.toJson());
+AccountEntity accountFromJson(String str) => AccountEntity.fromJson(json.decode(str));
 
 @HiveType(typeId: 3)
 class AccountEntity extends HiveObject {
@@ -24,4 +29,22 @@ class AccountEntity extends HiveObject {
     this.address,
     this.role,
   });
+
+  factory AccountEntity.fromJson(Map<dynamic, dynamic> json) {
+    return AccountEntity(
+      name: json['name'],
+      phone: json['phone'],
+      email: json['email'],
+      address: json['address'],
+      role: json['role'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "phone": phone,
+    "email": email,
+    "address": address,
+    "role": role,
+  };
 }

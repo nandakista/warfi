@@ -15,7 +15,7 @@ enum ProductStatus {
 }
 
 class AddProductPage extends StatelessWidget {
-  static const String route = '/add-product';
+  static const String route = '/product/add';
   const AddProductPage({Key? key}) : super(key: key);
 
   @override

@@ -30,12 +30,14 @@ class TransactionEntity extends HiveObject {
   @HiveField(7)
   final DateTime? updateAt;
 
-
   @HiveField(8)
   final String? note;
 
   @HiveField(9)
-  final AccountEntity? account;
+  final String? account;
+
+  @HiveField(10)
+  final int? debt;
 
   TransactionEntity({
     this.name,
@@ -48,5 +50,6 @@ class TransactionEntity extends HiveObject {
     this.pcs,
     this.note,
     this.account,
+    this.debt,
   });
 }

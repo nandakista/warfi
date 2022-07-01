@@ -10,7 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class ListProductPage extends StatelessWidget {
-  static const String route = '/list-product';
+  static const String route = '/products';
   const ListProductPage({Key? key}) : super(key: key);
 
   @override

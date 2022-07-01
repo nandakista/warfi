@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:desktop_base/app/app_service.dart';
 import 'package:desktop_base/database/data/account_data.dart';
 import 'package:desktop_base/database/hive/dao/product_dao.dart';
 import 'package:desktop_base/database/hive/dao/transaction_dao.dart';
+import 'package:desktop_base/database/hive/entity/account/account_entity.dart';
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
 import 'package:desktop_base/database/hive/entity/transaction/transaction_entity.dart';
 import 'package:desktop_base/features/product/add_product/add_product_page.dart';
@@ -96,7 +99,7 @@ class AddProductProvider with ChangeNotifier {
             createdAt: DateTime.now(),
             updateAt: DateTime.now(),
             note: noteController.text,
-            account: admin
+            account: accountToJson(admin)
         ),
       );
     }
