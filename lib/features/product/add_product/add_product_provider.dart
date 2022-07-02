@@ -42,8 +42,19 @@ class AddProductProvider with ChangeNotifier {
   Future<void> addProduct(BuildContext context) async {
     if (validateField()) {
       try {
-        addOrUpdateProduct();
-        createTransaction();
+        ProductEntity product = ProductEntity(
+          id: nameController.text.toLowerCase().toSnakeCase(),
+          name: nameController.text.capitalize(),
+          price: priceController.text.fromIDRtoInt(),
+          dus: int.tryParse(boxController.text) ?? 0,
+          bal: int.tryParse(balController.text) ?? 0,
+          pack: int.tryParse(packController.text) ?? 0,
+          pcs: int.tryParse(pcsController.text) ?? 0,
+          createdAt: DateTime.now(),
+          updateAt: DateTime.now(),
+        );
+        addOrUpdateProduct(product);
+        createTransaction(product);
         AppDialog.show(
           context: context,
           typeDialog: TypeDialog.SUCCESS,
@@ -66,40 +77,21 @@ class AddProductProvider with ChangeNotifier {
     }
   }
 
-  addOrUpdateProduct(){
+  addOrUpdateProduct(ProductEntity product){
     locator<ProductDao>().addOrUpdate(
-      ProductEntity(
-        id: nameController.text.toLowerCase().toSnakeCase(),
-        name: nameController.text.capitalize(),
-        price: priceController.text.fromIDRtoInt(),
-        dus: int.tryParse(boxController.text) ?? 0,
-        bal: int.tryParse(balController.text) ?? 0,
-        pack: int.tryParse(packController.text) ?? 0,
-        pcs: int.tryParse(pcsController.text) ?? 0,
-        createdAt: DateTime.now(),
-        updateAt: DateTime.now(),
-      ),
+      product
     );
   }
 
-  createTransaction(){
-    var dus = int.tryParse(boxController.text) ?? 0;
-    var bal = int.tryParse(balController.text) ?? 0;
-    var pack = int.tryParse(packController.text) ?? 0;
-    var pcs = int.tryParse(pcsController.text) ?? 0;
-    if(dus!=0 && bal !=0 && pack!=0 && pcs != 0) {
+  createTransaction(ProductEntity product){
+    if(product.dus!=0 && product.bal !=0 && product.pack!=0 && product.pcs != 0) {
       locator<TransactionDao>().add(
         TransactionEntity(
-            name: nameController.text.capitalize(),
-            price: priceController.text.fromIDRtoInt(),
-            dus: dus,
-            bal: bal,
-            pack: pack,
-            pcs: pcs,
+            product: product,
             createdAt: DateTime.now(),
             updateAt: DateTime.now(),
             note: noteController.text,
-            account: accountToJson(admin)
+            account: admin,
         ),
       );
     }

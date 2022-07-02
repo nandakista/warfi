@@ -2,7 +2,6 @@ import 'package:desktop_base/app/app_service.dart';
 import 'package:desktop_base/database/hive/dao/product_dao.dart';
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
 import 'package:desktop_base/features/product/add_product/add_product_page.dart';
-import 'package:desktop_base/models/product.dart';
 import 'package:flutter/material.dart';
 
 enum ResultState { LOADING, EMPTY, ERROR, SUCCESS }

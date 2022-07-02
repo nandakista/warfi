@@ -28,7 +28,6 @@ class HistoryInProvider with ChangeNotifier {
       if(data.isNotEmpty) {
         _state = ResultState.SUCCESS;
         notifyListeners();
-        debugPrint('Result : $data');
         return _listRecap = data;
       } else {
         _state = ResultState.EMPTY;

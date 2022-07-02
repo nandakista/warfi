@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:hive/hive.dart';
 
+part 'account_entity.g.dart';
+
 String accountToJson(AccountEntity data) => json.encode(data.toJson());
 AccountEntity accountFromJson(String str) => AccountEntity.fromJson(json.decode(str));
 

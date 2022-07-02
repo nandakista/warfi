@@ -157,8 +157,6 @@ class HistoryInTab extends StatelessWidget {
       itemCount: data.length,
       itemBuilder: (_, index) {
         TransactionEntity item = data[index];
-        print("Account : ${item.account}");
-        // AccountEntity account = accountFromJson(item.account.toString());
         return ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,13 +167,13 @@ class HistoryInTab extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        item.name.toString(),
+                        '${item.product?.name}',
                         style: AppStyle.small,
                       ),
                     ),
                     Expanded(
                       child: Text(
-                        (item.price?.toInt() ?? 0).toIDR(),
+                        (item.product?.price?.toInt() ?? 0).toIDR(),
                         textAlign: TextAlign.center,
                         style: AppStyle.small,
                       ),
@@ -191,7 +189,7 @@ class HistoryInTab extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        '${item.dus} Dus',
+                        '${item.product?.dus} Dus',
                         textAlign: TextAlign.center,
                         style: AppStyle.small,
                       ),
@@ -199,7 +197,7 @@ class HistoryInTab extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        '${item.bal} Bal',
+                        '${item.product?.bal} Bal',
                         textAlign: TextAlign.center,
                         style: AppStyle.small,
                       ),
@@ -207,7 +205,7 @@ class HistoryInTab extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        '${item.pack} Pack',
+                        '${item.product?.pack} Pack',
                         textAlign: TextAlign.center,
                         style: AppStyle.small,
                       ),
@@ -215,7 +213,7 @@ class HistoryInTab extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        '${item.pcs} Pcs',
+                        '${item.product?.pcs} Pcs',
                         textAlign: TextAlign.center,
                         style: AppStyle.small,
                       ),
@@ -237,7 +235,7 @@ class HistoryInTab extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'account.name' ?? 'Error',
+                        item.account.name ?? 'Error',
                         textAlign: TextAlign.right,
                         style: AppStyle.small,
                       ),
