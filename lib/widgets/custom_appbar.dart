@@ -6,7 +6,6 @@ class CustomAppBar extends StatelessWidget {
   final Color? backgroundColor, textColor;
   final VoidCallback onPress;
   final String title;
-  final bool? canBack;
   final List<Widget>? action;
 
   const CustomAppBar({
@@ -16,7 +15,6 @@ class CustomAppBar extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.action,
-    this.canBack = false,
   }) : super(key: key);
 
   @override
@@ -38,7 +36,7 @@ class CustomAppBar extends StatelessWidget {
       backgroundColor:
           (context.isDarkMode()) ? AppColors.baseDark : AppColors.baseLight,
       elevation: 0,
-      leading: (canBack!)
+      leading: (Navigator.canPop(context))
           ? Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: IconButton(
@@ -48,7 +46,7 @@ class CustomAppBar extends StatelessWidget {
                 color: (context.isDarkMode()) ? Colors.white : Colors.black,
               ),
             )
-          : Container(),
+          : null,
       actions: action,
     );
   }

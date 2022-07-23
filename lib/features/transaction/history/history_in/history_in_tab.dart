@@ -1,10 +1,9 @@
 import 'package:desktop_base/app/app_constant.dart';
-import 'package:desktop_base/database/hive/entity/account/account_entity.dart';
 import 'package:desktop_base/database/hive/entity/transaction/transaction_entity.dart';
-import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/features/transaction/history/history_in/history_in_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
 import 'package:desktop_base/helper/date_time_helper.dart';
+import 'package:desktop_base/helper/provider_state.dart';
 import 'package:desktop_base/themes/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -147,9 +146,7 @@ class HistoryInTab extends StatelessWidget {
     );
   }
 
-  _buildBodyList({
-    required List<TransactionEntity> data,
-  }) {
+  _buildBodyList({required List<TransactionEntity> data}) {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),

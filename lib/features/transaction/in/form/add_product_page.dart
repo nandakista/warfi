@@ -1,4 +1,5 @@
-import 'package:desktop_base/features/product/add_product/add_product_provider.dart';
+import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
+import 'package:desktop_base/features/transaction/in/form/add_product_provider.dart';
 import 'package:desktop_base/helper/input_formater.dart';
 import 'package:desktop_base/helper/validator_helper.dart';
 import 'package:desktop_base/themes/app_style.dart';
@@ -8,11 +9,6 @@ import 'package:desktop_base/widgets/custom_form_field.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
-enum ProductStatus {
-  ADD,
-  UPDATE,
-}
 
 class AddProductPage extends StatelessWidget {
   static const String route = '/product/add';
@@ -27,7 +23,7 @@ class AddProductPage extends StatelessWidget {
     final provider = Provider.of<AddProductProvider>(context, listen: false);
     provider.initPage(productStatus, product);
     return ContentWrapper(
-      title: (productStatus == ProductStatus.ADD) ? 'Tambah Produk' : 'Edit Product',
+      title: (productStatus == ProductAction.ADD) ? 'Tambah Produk' : 'Edit Product',
       child: Form(
         key: provider.formKey,
         child: ListView(
@@ -41,7 +37,7 @@ class AddProductPage extends StatelessWidget {
               'Nama Barang',
               'Nama',
               provider.nameController,
-              readOnly: (productStatus == ProductStatus.ADD) ? false : true,
+              readOnly: (productStatus == ProductAction.ADD) ? false : true,
               icon: FluentIcons.product_catalog,
             ),
             const SizedBox(height: 24),
@@ -57,7 +53,7 @@ class AddProductPage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Visibility(
-              visible: (productStatus == ProductStatus.ADD) ? true : false,
+              visible: (productStatus == ProductAction.ADD) ? true : false,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -118,8 +114,8 @@ class AddProductPage extends StatelessWidget {
             ),
             CustomButton(
               text:
-                  (productStatus == ProductStatus.ADD) ? 'Tambah Barang' : 'Edit Barang',
-              icon: (productStatus == ProductStatus.ADD)
+                  (productStatus == ProductAction.ADD) ? 'Tambah Barang' : 'Edit Barang',
+              icon: (productStatus == ProductAction.ADD)
                   ? FluentIcons.add
                   : FluentIcons.edit,
               fontWeight: FontWeight.bold,

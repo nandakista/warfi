@@ -1,7 +1,7 @@
 import 'package:desktop_base/app/app_service.dart';
 import 'package:desktop_base/database/hive/dao/transaction_dao.dart';
 import 'package:desktop_base/database/hive/entity/transaction/transaction_entity.dart';
-import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
+import 'package:desktop_base/helper/provider_state.dart';
 import 'package:flutter/material.dart';
 
 class HistoryInProvider with ChangeNotifier {

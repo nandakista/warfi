@@ -3,7 +3,7 @@ import 'package:desktop_base/themes/app_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final Color color, textColor, iconColor;
+  final Color color, textColor, iconColor, borderColor;
   final VoidCallback? onPress;
   final String text;
   final double? height, width, fontSize, borderRadius, elevation;
@@ -23,7 +23,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.borderRadius = 8,
-    this.elevation = 1,
+    this.elevation = 1, this.borderColor = AppColors.primary,
   }) : super(key: key);
 
   @override
@@ -51,6 +51,7 @@ class CustomButton extends StatelessWidget {
           fixedSize: Size(width ?? MediaQuery.of(context).size.width, height!),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius!),
+            side: BorderSide(width: 2, color: AppColors.primary, style: BorderStyle.solid),
           ),
         ),
         label: Text(

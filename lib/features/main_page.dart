@@ -1,14 +1,16 @@
 import 'package:desktop_base/app/app_constant.dart';
 import 'package:desktop_base/features/about/about_page.dart';
+import 'package:desktop_base/features/customer/customer_routes.dart';
 import 'package:desktop_base/features/home/home_routes.dart';
 import 'package:desktop_base/features/product/product_routes.dart';
-import 'package:desktop_base/features/transaction/history/transaction_page.dart';
-import 'package:desktop_base/features/transaction/history/transaction_routes.dart';
+import 'package:desktop_base/features/transaction/transaction_page.dart';
+import 'package:desktop_base/features/transaction/transaction_routes.dart';
 import 'package:desktop_base/helper/base_navigator.dart';
 import 'package:desktop_base/themes/app_colors.dart';
 import 'package:desktop_base/themes/app_style.dart';
 import 'package:desktop_base/themes/app_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -24,7 +26,8 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: (context.isDarkMode()) ? AppColors.baseDark : AppColors.baseLight,
+      backgroundColor:
+          (context.isDarkMode()) ? AppColors.baseDark : AppColors.baseLight,
       body: NavigationView(
         appBar: NavigationAppBar(
           title: Text(
@@ -37,13 +40,14 @@ class _MainPageState extends State<MainPage> {
         pane: NavigationPane(
           selected: _currentIndex,
           onChanged: (i) => setState(() => _currentIndex = i),
-          displayMode: _buildPaneStyle(),
+          // displayMode: _buildPaneStyle(),
+          displayMode: PaneDisplayMode.top,
           indicator: const EndNavigationIndicator(),
           items: _buildPaneItem(),
         ),
         content: NavigationBody.builder(
           index: _currentIndex,
-          itemCount: 3,
+          itemCount: 4,
           itemBuilder: (context, index) {
             return NavigationBody(
               index: _currentIndex,
@@ -68,6 +72,10 @@ class _MainPageState extends State<MainPage> {
 
   List<NavigationPaneItem> _buildPaneItem() => [
         PaneItem(
+          icon: const Icon(CupertinoIcons.rectangle_stack_person_crop),
+          title: const Text('Customer'),
+        ),
+        PaneItem(
           icon: const Icon(FluentIcons.home),
           title: const Text('Home'),
         ),
@@ -89,6 +97,7 @@ class _MainPageState extends State<MainPage> {
       ];
 
   final List<Widget> _buildPages = [
+    const BaseNavigator(pages: customerRoute),
     const BaseNavigator(pages: homeRoute),
     const BaseNavigator(pages: productRoute),
     const BaseNavigator(pages: transactionRoute),

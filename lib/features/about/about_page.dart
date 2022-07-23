@@ -11,7 +11,6 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ContentWrapper(
       title: 'About',
-      canBack: false,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

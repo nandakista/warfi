@@ -1,9 +1,10 @@
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
+import 'package:desktop_base/database/hive/hive_box.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class ProductDao {
-  final box = Hive.box('productBox');
+  final box = Hive.box(HiveBox.product);
 
   add(ProductEntity entity) {
     box.put(entity.id, entity);

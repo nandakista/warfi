@@ -8,7 +8,6 @@ class ContentWrapper extends StatelessWidget {
   final Widget? child;
   final String? title;
   final Widget? floatingActionButton;
-  final bool? canBack;
   final VoidCallback? onBackPressed;
   final List<Widget>? action;
 
@@ -17,7 +16,6 @@ class ContentWrapper extends StatelessWidget {
     required this.child,
     this.title = "",
     this.floatingActionButton,
-    this.canBack = true,
     this.onBackPressed,
     this.action,
   }) : super(key: key);
@@ -32,7 +30,6 @@ class ContentWrapper extends StatelessWidget {
         child: CustomAppBar(
           title: title!,
           action: action,
-          canBack: canBack,
           onPress: onBackPressed ?? () => Navigator.pop(context),
         ),
       ),

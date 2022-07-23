@@ -33,8 +33,9 @@ class CustomDialog extends StatelessWidget {
                   borderRadius: BorderRadius.circular(17),
                   boxShadow: [
                     BoxShadow(
-                        color:
-                        (context.isDarkMode()) ? AppColors.primary : Colors.black,
+                        color: (context.isDarkMode())
+                            ? AppColors.primary
+                            : Colors.black,
                         offset: const Offset(0.0, 0.0),
                         blurRadius: 10.0)
                   ],
@@ -67,7 +68,9 @@ class LoadingDialog extends StatelessWidget {
             borderRadius: BorderRadius.circular(17),
             boxShadow: [
               BoxShadow(
-                  color: (context.isDarkMode()) ? AppColors.primary : Colors.black26,
+                  color: (context.isDarkMode())
+                      ? AppColors.primary
+                      : Colors.black26,
                   offset: const Offset(0.0, 2.0),
                   blurRadius: 10.0)
             ]),
@@ -160,6 +163,8 @@ class DialogAlert extends StatelessWidget {
         children: [
           Wrap(children: [
             Container(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width / 3,
               padding: const EdgeInsets.fromLTRB(16, 100, 16, 16),
               margin: const EdgeInsets.only(top: 16),
               decoration: BoxDecoration(
@@ -168,16 +173,21 @@ class DialogAlert extends StatelessWidget {
                   borderRadius: BorderRadius.circular(17),
                   boxShadow: [
                     BoxShadow(
-                        color:
-                            (context.isDarkMode()) ? AppColors.primary : Colors.black,
+                        color: (context.isDarkMode())
+                            ? AppColors.primary
+                            : Colors.black,
                         offset: const Offset(0.0, 0.0),
                         blurRadius: 10.0)
                   ]),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     title,
-                    style: AppStyle.title2.copyWith(color: AppColors.primary),
+                    style: AppStyle.title2.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 24),
                   Text(

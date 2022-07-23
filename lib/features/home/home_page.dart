@@ -2,6 +2,7 @@ import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
 import 'package:desktop_base/features/home/component/header_card_component.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
+import 'package:desktop_base/helper/provider_state.dart';
 import 'package:desktop_base/themes/app_style.dart';
 import 'package:desktop_base/widgets/basic_widget.dart';
 import 'package:desktop_base/widgets/content_wrapper.dart';
@@ -18,7 +19,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ContentWrapper(
       title: 'Home',
-      canBack: false,
       action: [
         ActionIcon(
           icon: fl.FluentIcons.ringer,

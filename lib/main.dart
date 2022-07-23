@@ -6,12 +6,15 @@ import 'package:desktop_base/app/app_service.dart';
 import 'package:desktop_base/database/hive/app_database.dart';
 import 'package:desktop_base/database/hive/dao/product_dao.dart';
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
+import 'package:desktop_base/features/customer/form/add_customer_provider.dart';
 import 'package:desktop_base/features/main_page.dart';
-import 'package:desktop_base/features/product/add_product/add_product_provider.dart';
+import 'package:desktop_base/features/transaction/history/history_out/history_out_provider.dart';
+import 'package:desktop_base/features/transaction/in/form/add_product_provider.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/features/test_page.dart';
-import 'package:desktop_base/features/transaction/form/out_product/transaction_out_provider.dart';
+import 'package:desktop_base/features/transaction/out/form/transaction_out_provider.dart';
 import 'package:desktop_base/features/transaction/history/history_in/history_in_provider.dart';
+import 'package:desktop_base/features/customer/list/list_customer_provider.dart';
 import 'package:desktop_base/helper/general_function.dart';
 import 'package:desktop_base/helper/scroll_helper.dart';
 import 'package:desktop_base/themes/app_theme.dart';
@@ -37,10 +40,21 @@ class MyApp extends fluent.StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+
+        // Pemasukan Barang
         ChangeNotifierProvider(create: (context) => AddProductProvider()),
         ChangeNotifierProvider(create: (context) => ListProductProvider().init()),
+
+        // History
         ChangeNotifierProvider(create: (context) => HistoryInProvider()),
+        ChangeNotifierProvider(create: (context) => HistoryOutProvider()),
+
+        // Pengeluaran
         ChangeNotifierProvider(create: (context) => TransactionOutProvider()),
+
+        // Customer
+        ChangeNotifierProvider(create: (context) => ListCustomerProvider().init()),
+        ChangeNotifierProvider(create: (context) => AddCustomerProvider()),
       ],
         child: fluent.FluentApp(
           title: AppConst.appName,

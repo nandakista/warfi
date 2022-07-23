@@ -1,10 +1,9 @@
 import 'package:desktop_base/app/app_service.dart';
 import 'package:desktop_base/database/hive/dao/product_dao.dart';
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
-import 'package:desktop_base/features/product/add_product/add_product_page.dart';
+import 'package:desktop_base/features/transaction/in/form/add_product_page.dart';
+import 'package:desktop_base/helper/provider_state.dart';
 import 'package:flutter/material.dart';
-
-enum ResultState { LOADING, EMPTY, ERROR, SUCCESS }
 
 class ListProductProvider with ChangeNotifier {
   List<ProductEntity> _listProduct = [];
@@ -57,15 +56,26 @@ class ListProductProvider with ChangeNotifier {
   }
 
   toAddProduct(BuildContext context) {
-    return Navigator.pushNamed(context, AddProductPage.route,
-            arguments: {'product_status': ProductStatus.ADD})
-        .then((value) => init());
+    return Navigator.pushNamed(
+      context,
+      AddProductPage.route,
+      arguments: {'product_status': ProductAction.ADD},
+    ).then((_) => init());
   }
 
   toEditProduct(BuildContext context, ProductEntity product) {
-    return Navigator.pushNamed(context, AddProductPage.route, arguments: {
-      'product_status': ProductStatus.UPDATE,
-      'product': product,
-    });
+    return Navigator.pushNamed(
+      context,
+      AddProductPage.route,
+      arguments: {
+        'product_status': ProductAction.UPDATE,
+        'product': product,
+      },
+    ).then((_) => init());
   }
+}
+
+enum ProductAction {
+  ADD,
+  UPDATE,
 }

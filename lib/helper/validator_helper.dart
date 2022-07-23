@@ -27,10 +27,10 @@ class FieldValidator {
 }
 
 class TelephoneFieldValidator {
-  static String? validate(String? value) {
-    // if (value.isEmpty || !PhoneNumberValidator.validate(value)) {
-    //   return 'No.Telepon tidak valid!';
-    // }
+  static String? validate(String value) {
+    if (value.isEmpty || !PhoneNumberValidator.validate(value)) {
+      return 'No.Telepon tidak valid!';
+    }
     return null;
   }
 }
@@ -103,7 +103,7 @@ class KodePosFieldValidator {
 
 class PhoneNumberValidator {
   static validate(String phoneNumber) {
-    RegExp regex = RegExp(r'^(08)(\d{3,4}-?){2}\d{3,4}$');
+    RegExp regex = RegExp(r'^(08)(\d{2,3}-?){2}\d{4,5}$');
     if (!regex.hasMatch(phoneNumber)) {
       return false;
     } else {

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:desktop_base/database/hive/fields/account_fields.dart';
+import 'package:desktop_base/database/hive/hive_box.dart';
 import 'package:hive/hive.dart';
 
 part 'account_entity.g.dart';
@@ -7,21 +9,22 @@ part 'account_entity.g.dart';
 String accountToJson(AccountEntity data) => json.encode(data.toJson());
 AccountEntity accountFromJson(String str) => AccountEntity.fromJson(json.decode(str));
 
-@HiveType(typeId: 3)
+@HiveType(typeId: HiveBox.accountType)
 class AccountEntity extends HiveObject {
-  @HiveField(0)
+
+  @HiveField(AccountFields.name)
   final String? name;
 
-  @HiveField(1)
+  @HiveField(AccountFields.phone)
   final String? phone;
 
-  @HiveField(2)
+  @HiveField(AccountFields.email)
   final String? email;
 
-  @HiveField(3)
+  @HiveField(AccountFields.address)
   final String? address;
 
-  @HiveField(4)
+  @HiveField(AccountFields.role)
   final String? role;
 
   AccountEntity({

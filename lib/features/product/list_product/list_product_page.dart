@@ -1,6 +1,7 @@
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
 import 'package:desktop_base/features/product/list_product/list_product_provider.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
+import 'package:desktop_base/helper/provider_state.dart';
 import 'package:desktop_base/themes/app_colors.dart';
 import 'package:desktop_base/themes/app_style.dart';
 import 'package:desktop_base/widgets/content_wrapper.dart';
@@ -19,8 +20,7 @@ class ListProductPage extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: () async => provider.init(),
       child: ContentWrapper(
-        title: 'Product List',
-        canBack: false,
+        title: 'Daftar Produk',
         action: [
           IconButton(
               onPressed: () => provider.init(),

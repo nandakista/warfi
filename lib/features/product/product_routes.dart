@@ -1,4 +1,4 @@
-import 'package:desktop_base/features/product/add_product/add_product_page.dart';
+import 'package:desktop_base/features/transaction/in/form/add_product_page.dart';
 import 'package:desktop_base/features/product/list_product/list_product_page.dart';
 import 'package:flutter/material.dart';
 

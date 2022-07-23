@@ -1,22 +1,25 @@
+import 'package:desktop_base/database/hive/fields/customer_fields.dart';
+import 'package:desktop_base/database/hive/hive_box.dart';
 import 'package:hive/hive.dart';
 
 part 'customer_entity.g.dart';
 
-@HiveType(typeId: 5)
+@HiveType(typeId: HiveBox.customerType)
 class CustomerEntity extends HiveObject {
-  @HiveField(0)
+
+  @HiveField(CustomerFields.name)
   final String? name;
 
-  @HiveField(1)
+  @HiveField(CustomerFields.phone)
   final String? phone;
 
-  @HiveField(2)
+  @HiveField(CustomerFields.email)
   final String? email;
 
-  @HiveField(3)
+  @HiveField(CustomerFields.address)
   final String? address;
 
-  @HiveField(4)
+  @HiveField(CustomerFields.role)
   final String? role;
 
   CustomerEntity({

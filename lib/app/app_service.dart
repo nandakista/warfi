@@ -1,5 +1,7 @@
 import 'package:desktop_base/app/app_config.dart';
+import 'package:desktop_base/database/hive/dao/customer_dao.dart';
 import 'package:desktop_base/database/hive/dao/product_dao.dart';
+import 'package:desktop_base/database/hive/dao/recap_dao.dart';
 import 'package:desktop_base/database/hive/dao/transaction_dao.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,5 +14,7 @@ class AppServices {
     locator.registerLazySingleton(() => AppConfig());
     locator.registerLazySingleton(() => ProductDao());
     locator.registerLazySingleton(() => TransactionDao());
+    locator.registerLazySingleton(() => RecapDao());
+    locator.registerLazySingleton(() => CustomerDao());
   }
 }
