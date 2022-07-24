@@ -11,6 +11,7 @@ import 'package:desktop_base/features/product/list_product/list_product_provider
 import 'package:desktop_base/features/transaction/in/form/add_product_page.dart';
 import 'package:desktop_base/helper/converter_helper.dart';
 import 'package:desktop_base/helper/dialog_helper.dart';
+import 'package:desktop_base/helper/input_formater.dart';
 import 'package:flutter/material.dart';
 
 class AddProductProvider with ChangeNotifier {
@@ -24,10 +25,11 @@ class AddProductProvider with ChangeNotifier {
   final noteController = TextEditingController();
 
   initPage(ProductAction arg, ProductEntity? product){
+    priceController.value = CurrencyInputFormatter.defaultFormat('0');
     if(arg == ProductAction.UPDATE) {
-      if(product != null) {
+      if (product != null) {
       nameController.text = product.name.toString();
-      priceController.text = product.price.toString();
+      priceController.value = CurrencyInputFormatter.defaultFormat(product.price.toString());
       }
     }
   }

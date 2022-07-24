@@ -19,9 +19,10 @@ class ListCustomerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isPick = ModalRoute.of(context)!.settings.arguments;
     final provider = Provider.of<ListCustomerProvider>(context, listen: false);
     return ContentWrapper(
-      title: 'Daftar Customer',
+      title: (isPick != null) ? 'Pilih Customer' : 'Daftar Customer',
       action: [
         IconButton(
             onPressed: () => provider.init(),
@@ -60,6 +61,7 @@ class ListCustomerPage extends StatelessWidget {
                 context: context,
                 data: data,
                 provider: provider,
+                isPick: (isPick != null),
               );
           }
         },
@@ -87,6 +89,7 @@ class ListCustomerPage extends StatelessWidget {
     required BuildContext context,
     required List<CustomerEntity> data,
     required ListCustomerProvider provider,
+    required bool isPick,
   }) {
     return ListView.separated(
       separatorBuilder: (_, index) => const Divider(),
@@ -94,6 +97,7 @@ class ListCustomerPage extends StatelessWidget {
       itemBuilder: (_, index) {
         final item = data[index];
         return ListTile(
+          onTap: (isPick) ? () => Navigator.pop(context, item) : null,
           leading: const CircleAvatar(
             child: Image(image: AssetImage('assets/images/img_person.png')),
           ),
@@ -109,24 +113,27 @@ class ListCustomerPage extends StatelessWidget {
                     Text(item.address.toString(), textAlign: TextAlign.start),
               ),
               const SizedBox(width: 16),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () => provider.toEditCustomer(context, index, item),
-                    child: const Icon(
-                      fl.FluentIcons.edit,
-                      color: AppColors.primary,
+              Visibility(
+                visible: !isPick,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () => provider.toEditCustomer(context, index, item),
+                      child: const Icon(
+                        fl.FluentIcons.edit,
+                        color: AppColors.primary,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  InkWell(
-                    onTap: () => provider.deleteCustomer(index),
-                    child: const Icon(
-                      fl.FluentIcons.delete,
-                      color: AppColors.primary,
+                    const SizedBox(width: 16),
+                    InkWell(
+                      onTap: () => provider.deleteCustomer(index),
+                      child: const Icon(
+                        fl.FluentIcons.delete,
+                        color: AppColors.primary,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

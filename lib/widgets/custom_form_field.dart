@@ -17,6 +17,7 @@ class CustomFieldForm extends StatelessWidget {
   final Color? textColor;
   final Color? hintColor;
   final bool readOnly;
+  final bool enable;
   final Function(String)? onFieldSubmitted;
   final Function(String)? onChanged;
 
@@ -39,6 +40,7 @@ class CustomFieldForm extends StatelessWidget {
     this.onFieldSubmitted,
     this.onChanged,
     this.readOnly = false,
+    this.enable = true,
     this.endText,
     this.startText,
   }) : super(key: key);
@@ -59,7 +61,7 @@ class CustomFieldForm extends StatelessWidget {
       child: TextFormField(
         onTap: onPress,
         readOnly: readOnly,
-        enabled: !readOnly,
+        enabled: enable,
         onEditingComplete: () => FocusScope.of(context).nextFocus(),
         controller: controller,
         keyboardType: keyboardType,

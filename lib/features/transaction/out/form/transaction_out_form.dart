@@ -18,8 +18,8 @@ class TransactionOutForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider =
-        Provider.of<TransactionOutProvider>(context, listen: false);
+    final provider = Provider.of<TransactionOutProvider>(context, listen: false);
+    provider.debtController.value = CurrencyInputFormatter.defaultFormat('0');
     return ContentWrapper(
       title: 'Tambah Penjualan/Pengeluaran',
       child: Form(
@@ -36,7 +36,7 @@ class TransactionOutForm extends StatelessWidget {
               hint: 'Customer',
               controller: provider.customerController,
               icon: CupertinoIcons.person_add,
-              // readOnly: true,
+              readOnly: true,
               validator: (value) => null,
               endIcon: Icons.arrow_forward_ios,
               onPress: (){ provider.toPickCustomer(context); },
@@ -65,6 +65,7 @@ class TransactionOutForm extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text('Produk', style: AppStyle.subtitle3),
+            const SizedBox(height: 16),
             CustomButton(
               text: 'Tambah Produk',
               onPress: () {

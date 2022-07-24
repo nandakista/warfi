@@ -45,7 +45,19 @@ class TransactionOutProvider with ChangeNotifier {
 
   toPickCustomer(BuildContext context) async {
     // print('Pick Customer');
-    // final result = Navigator.pushNamed(context, ListCustomerPage.route);
-    return Navigator.pushNamed(context, ListCustomerPage.route);
+    final result = await Navigator.pushNamed(
+      context,
+      ListCustomerPage.route,
+      arguments: TransactionAction.PICK_CUSTOMER,
+    ) as CustomerEntity?;
+    if(result != null) {
+      customerController.text = result.name.toString();
+      print('Picked Customer = ${result?.name}');
+    }
+    // return Navigator.pushNamed(context, ListCustomerPage.route);
   }
+}
+
+enum TransactionAction {
+  PICK_CUSTOMER,
 }

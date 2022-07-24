@@ -3,16 +3,24 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class CurrencyInputFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  static TextEditingValue defaultFormat(String text) {
+    return CurrencyInputFormatter().formatEditUpdate(
+      const TextEditingValue(text: ''),
+      TextEditingValue(text: text),
+    );
+  }
 
-    if(newValue.selection.baseOffset == 0){
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.selection.baseOffset == 0) {
       debugPrint(true.toString());
       return newValue;
     }
 
     double value = double.parse(newValue.text);
-    final formatter = NumberFormat.currency(locale: 'id', symbol: 'Rp ', decimalDigits: 0);
+    final formatter =
+        NumberFormat.currency(locale: 'id', symbol: 'Rp ', decimalDigits: 0);
     String newText = formatter.format(value);
     return newValue.copyWith(
         text: newText,
