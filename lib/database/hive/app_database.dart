@@ -1,6 +1,7 @@
 import 'package:desktop_base/database/hive/entity/account/account_entity.dart';
 import 'package:desktop_base/database/hive/entity/customer/customer_entity.dart';
 import 'package:desktop_base/database/hive/entity/product/product_entity.dart';
+import 'package:desktop_base/database/hive/entity/recap/recap_entity.dart';
 import 'package:desktop_base/database/hive/entity/transaction/transaction_entity.dart';
 import 'package:desktop_base/database/hive/hive_box.dart';
 import 'package:hive/hive.dart';
@@ -12,6 +13,7 @@ class HiveDB {
     Hive.registerAdapter(ProductEntityAdapter());
     Hive.registerAdapter(TransactionEntityAdapter());
     Hive.registerAdapter(CustomerEntityAdapter());
+    Hive.registerAdapter(RecapEntityAdapter());
 
     final appDocumentDir = await getApplicationDocumentsDirectory();
     Hive.init(appDocumentDir.path);

@@ -26,7 +26,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DesktopWindow.setMinWindowSize(const Size(550, 600));
+  await DesktopWindow.setMinWindowSize(const Size(700, 600));
   HttpOverrides.global = MyHttpOverrides();
   await AppServices.init();
   await HiveDB.init();

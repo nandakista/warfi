@@ -111,7 +111,7 @@ class HistoryInTab extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Jumlah Dus',
+                    'Jumlah',
                     textAlign: TextAlign.center,
                     style: AppStyle.small.copyWith(fontWeight: FontWeight.bold),
                   ),

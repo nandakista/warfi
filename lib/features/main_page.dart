@@ -72,8 +72,8 @@ class _MainPageState extends State<MainPage> {
 
   List<NavigationPaneItem> _buildPaneItem() => [
         PaneItem(
-          icon: const Icon(CupertinoIcons.rectangle_stack_person_crop),
-          title: const Text('Customer'),
+          icon: const Icon(FluentIcons.add_to_shopping_list),
+          title: const Text('Transaction'),
         ),
         PaneItem(
           icon: const Icon(FluentIcons.home),
@@ -87,8 +87,8 @@ class _MainPageState extends State<MainPage> {
           // ),
         ),
         PaneItem(
-          icon: const Icon(FluentIcons.add_to_shopping_list),
-          title: const Text('Transaction'),
+          icon: const Icon(CupertinoIcons.rectangle_stack_person_crop),
+          title: const Text('Customer'),
         ),
         PaneItem(
           icon: const Icon(FluentIcons.local_admin),
@@ -97,10 +97,10 @@ class _MainPageState extends State<MainPage> {
       ];
 
   final List<Widget> _buildPages = [
-    const BaseNavigator(pages: customerRoute),
+    const BaseNavigator(pages: transactionRoute),
     const BaseNavigator(pages: homeRoute),
     const BaseNavigator(pages: productRoute),
-    const BaseNavigator(pages: transactionRoute),
+    const BaseNavigator(pages: customerRoute),
     const AboutPage(),
   ];
 }

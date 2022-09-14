@@ -14,7 +14,7 @@ class RecapEntity extends HiveObject {
   final List<ProductEntity> listProduct;
 
   @HiveField(RecapFields.person)
-  final AccountEntity person;
+  final AccountEntity account;
 
   @HiveField(RecapFields.customer)
   final CustomerEntity customer;
@@ -31,7 +31,7 @@ class RecapEntity extends HiveObject {
   RecapEntity({
     required this.listProduct,
     required this.createdAt,
-    required this.person,
+    required this.account,
     required this.note,
     required this.debt,
     required this.customer,

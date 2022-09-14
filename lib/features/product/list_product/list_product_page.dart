@@ -16,6 +16,7 @@ class ListProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isPick = ModalRoute.of(context)!.settings.arguments;
     final provider = Provider.of<ListProductProvider>(context, listen: false);
     return RefreshIndicator(
       onRefresh: () async => provider.init(),
@@ -62,7 +63,11 @@ class ListProductPage extends StatelessWidget {
                   );
                 case ResultState.SUCCESS:
                   return _buildListProduct(
-                      context: context, data: data, provider: provider);
+                    context: context,
+                    data: data,
+                    provider: provider,
+                    isPick: (isPick != null),
+                  );
               }
             },
           ),
@@ -93,6 +98,7 @@ class ListProductPage extends StatelessWidget {
     required BuildContext context,
     required ListProductProvider provider,
     required List<ProductEntity> data,
+    required bool isPick,
   }) {
     return ListView.separated(
       shrinkWrap: true,
@@ -102,6 +108,7 @@ class ListProductPage extends StatelessWidget {
       itemBuilder: (_, index) {
         ProductEntity item = data[index];
         return ListTile(
+          onTap: (isPick) ? () => Navigator.pop(context, item) : null,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -141,43 +148,42 @@ class ListProductPage extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Flexible(
-                flex: 4,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Expanded(
-                        child: Text('${item.dus} Dus', style: AppStyle.small)),
-                    const SizedBox(width: 16),
-                    Expanded(
-                        child: Text('${item.bal} Bal', style: AppStyle.small)),
-                    const SizedBox(width: 16),
-                    Expanded(
-                        child:
-                            Text('${item.pack} Pack', style: AppStyle.small)),
-                    const SizedBox(width: 16),
-                    Expanded(
-                        child: Text('${item.pcs} Pcs', style: AppStyle.small)),
-                    InkWell(
-                      onTap: () {
-                        provider.toEditProduct(context, item);
-                      },
-                      child: const Icon(
-                        fl.FluentIcons.edit,
-                        color: AppColors.primary,
+              Visibility(
+                visible: !isPick,
+                child: Flexible(
+                  flex: 4,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Expanded(
+                          child: Text('${item.dus} Dus', style: AppStyle.small)),
+                      const SizedBox(width: 16),
+                      Expanded(
+                          child: Text('${item.bal} Bal', style: AppStyle.small)),
+                      const SizedBox(width: 16),
+                      Expanded(
+                          child:
+                              Text('${item.pack} Pack', style: AppStyle.small)),
+                      const SizedBox(width: 16),
+                      Expanded(
+                          child: Text('${item.pcs} Pcs', style: AppStyle.small)),
+                      InkWell(
+                        onTap: () => provider.toEditProduct(context, item),
+                        child: const Icon(
+                          fl.FluentIcons.edit,
+                          color: AppColors.primary,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    InkWell(
-                      onTap: () {
-                        provider.deleteProduct(item);
-                      },
-                      child: const Icon(
-                        fl.FluentIcons.delete,
-                        color: AppColors.primary,
+                      const SizedBox(width: 16),
+                      InkWell(
+                        onTap: () => provider.deleteProduct(item),
+                        child: const Icon(
+                          fl.FluentIcons.delete,
+                          color: AppColors.primary,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )
             ],

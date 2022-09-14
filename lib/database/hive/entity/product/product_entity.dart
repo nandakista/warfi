@@ -17,16 +17,16 @@ class ProductEntity extends HiveObject {
   final int? price;
 
   @HiveField(ProductFields.dus)
-  final int? dus;
+  int? dus;
 
   @HiveField(ProductFields.bal)
-  final int? bal;
+  int? bal;
 
   @HiveField(ProductFields.pack)
-  final int? pack;
+  int? pack;
 
   @HiveField(ProductFields.pcs)
-  final int? pcs;
+  int? pcs;
 
   @HiveField(ProductFields.createdAt)
   final DateTime? createdAt;

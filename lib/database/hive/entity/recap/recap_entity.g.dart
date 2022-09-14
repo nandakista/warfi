@@ -19,7 +19,7 @@ class RecapEntityAdapter extends TypeAdapter<RecapEntity> {
     return RecapEntity(
       listProduct: (fields[0] as List).cast<ProductEntity>(),
       createdAt: fields[5] as DateTime,
-      person: fields[1] as AccountEntity,
+      account: fields[1] as AccountEntity,
       note: fields[3] as String?,
       debt: fields[4] as int,
       customer: fields[2] as CustomerEntity,
@@ -33,7 +33,7 @@ class RecapEntityAdapter extends TypeAdapter<RecapEntity> {
       ..writeByte(0)
       ..write(obj.listProduct)
       ..writeByte(1)
-      ..write(obj.person)
+      ..write(obj.account)
       ..writeByte(2)
       ..write(obj.customer)
       ..writeByte(3)

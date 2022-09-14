@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:desktop_base/app/app_constant.dart';
 import 'package:desktop_base/database/hive/entity/recap/recap_entity.dart';
 import 'package:desktop_base/features/transaction/history/history_out/history_out_provider.dart';
@@ -94,18 +96,32 @@ class HistoryOutTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Flexible(
-            flex: 2,
+            flex: 4,
             child: Row(
               children: [
                 Expanded(
                   child: Text(
-                    'Nama Produk',
+                    'Nama Customer',
                     style: AppStyle.small.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Expanded(
                   child: Text(
-                    'Harga',
+                    'Total Harga',
+                    textAlign: TextAlign.center,
+                    style: AppStyle.small.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Kurang',
+                    textAlign: TextAlign.center,
+                    style: AppStyle.small.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Karyawan',
                     textAlign: TextAlign.center,
                     style: AppStyle.small.copyWith(fontWeight: FontWeight.bold),
                   ),
@@ -117,22 +133,6 @@ class HistoryOutTab extends StatelessWidget {
           Flexible(
             flex: 3,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Jumlah Dus',
-                    textAlign: TextAlign.center,
-                    style: AppStyle.small.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Spacer(),
-          Flexible(
-            flex: 2,
-            child: Row(
               children: [
                 Expanded(
                   child: Text(
@@ -142,8 +142,9 @@ class HistoryOutTab extends StatelessWidget {
                   ),
                 ),
                 Expanded(
+                  flex: 2,
                   child: Text(
-                    'Karyawan',
+                    'Catatan',
                     textAlign: TextAlign.right,
                     style: AppStyle.small.copyWith(fontWeight: FontWeight.bold),
                   ),
@@ -164,12 +165,29 @@ class HistoryOutTab extends StatelessWidget {
       itemCount: data.length,
       itemBuilder: (_, index) {
         RecapEntity item = data[index];
+        log('item = ${item.listProduct}');
+        int totalHarga = 0;
+        for(var e in item.listProduct) {
+          log('element = ${e.price}');
+          log('element dus = ${e.dus}');
+          log('element bal = ${e.bal}');
+          log('element pack = ${e.pack}');
+          log('element pcs = ${e.pcs}');
+          int totalQuantity;
+          int qDus = e.dus! * 20;
+          int qBal = e.bal! * 10;
+          int qPack = e.pack! * 6;
+          int qPcs = e.pcs!;
+          totalQuantity = qBal + qDus + qPack + qPcs;
+          log('totalQ = $totalQuantity');
+          totalHarga = totalHarga + (e.price! * totalQuantity);
+        }
         return ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                flex: 2,
+                flex: 4,
                 child: Row(
                   children: [
                     Expanded(
@@ -180,7 +198,21 @@ class HistoryOutTab extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
+                        (totalHarga).toIDR(),
+                        textAlign: TextAlign.center,
+                        style: AppStyle.small,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
                         (item.debt).toIDR(),
+                        textAlign: TextAlign.center,
+                        style: AppStyle.small,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        item.account.name ?? 'Error',
                         textAlign: TextAlign.center,
                         style: AppStyle.small,
                       ),
@@ -190,7 +222,7 @@ class HistoryOutTab extends StatelessWidget {
               ),
               const Spacer(),
               Flexible(
-                flex: 2,
+                flex: 3,
                 child: Row(
                   children: [
                     Expanded(
@@ -201,8 +233,9 @@ class HistoryOutTab extends StatelessWidget {
                       ),
                     ),
                     Expanded(
+                      flex: 2,
                       child: Text(
-                        item.person.name ?? 'Error',
+                        item.note ?? 'Error',
                         textAlign: TextAlign.right,
                         style: AppStyle.small,
                       ),
